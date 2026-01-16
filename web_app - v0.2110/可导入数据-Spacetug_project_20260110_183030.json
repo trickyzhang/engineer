@@ -1,0 +1,2490 @@
+{
+  "version": "2.0",
+  "format": "system_engineering_project",
+  "timestamp": "2026-01-10T18:30:30.370666",
+  "metadata": {
+    "project_name": "default_project",
+    "last_modified": "2026-01-10T18:30:30.370666",
+    "exported_by": "System Engineering Platform v2.0",
+    "platform_version": "2.0.0",
+    "database_backend": "SQLite + SQLAlchemy",
+    "export_notes": "完整项目导出 (含DVM索引修复)"
+  },
+  "data": {
+    "phase1": {
+      "design_variables": [
+        {
+          "name": "有效载荷",
+          "type": "discrete",
+          "min": 300.0,
+          "max": 5000.0,
+          "values": [
+            300,
+            1000,
+            3000,
+            5000
+          ],
+          "unit": " kg",
+          "description": null
+        },
+        {
+          "name": "推进类型",
+          "type": "categorical",
+          "min": NaN,
+          "max": NaN,
+          "values": [
+            "双组元推进",
+            "低温推进",
+            "电推进",
+            "核推进"
+          ],
+          "unit": " 无量纲",
+          "description": null
+        },
+        {
+          "name": "燃料水平",
+          "type": "discrete",
+          "min": 100.0,
+          "max": 30000.0,
+          "values": [
+            100,
+            300,
+            1000,
+            3000,
+            10000,
+            30000
+          ],
+          "unit": "kg",
+          "description": null
+        },
+        {
+          "name": "载荷类型",
+          "type": "categorical",
+          "min": NaN,
+          "max": NaN,
+          "values": [
+            "多机械臂",
+            "少机械臂",
+            "中等数量机械臂"
+          ],
+          "unit": "无量纲",
+          "description": null
+        },
+        {
+          "name": "传感器类型",
+          "type": "discrete",
+          "min": 3.0,
+          "max": 9.0,
+          "values": [
+            3,
+            5,
+            7,
+            9
+          ],
+          "unit": "TRL",
+          "description": null
+        },
+        {
+          "name": "通信下行链路",
+          "type": "categorical",
+          "min": NaN,
+          "max": NaN,
+          "values": [
+            "中继",
+            "直接下行"
+          ],
+          "unit": "无量纲",
+          "description": null
+        }
+      ],
+      "value_attributes": [
+        {
+          "name": "速度增量",
+          "unit": "km/s",
+          "ideal_value": null,
+          "worst_value": null,
+          "direction": "maximize",
+          "target": 1.0,
+          "definition": null
+        },
+        {
+          "name": "服务能力",
+          "unit": "无量纲",
+          "ideal_value": null,
+          "worst_value": null,
+          "direction": "maximize",
+          "target": 1.0,
+          "definition": null
+        },
+        {
+          "name": "响应时间",
+          "unit": "s",
+          "ideal_value": null,
+          "worst_value": null,
+          "direction": "minimize",
+          "target": 1.0,
+          "definition": null
+        },
+        {
+          "name": "总成本",
+          "unit": " $M",
+          "ideal_value": null,
+          "worst_value": null,
+          "direction": "minimize",
+          "target": 1.0,
+          "definition": null
+        }
+      ],
+      "dvm_matrix": [
+        {
+          "dvm_row_id": "有效载荷",
+          "速度增量": 1,
+          "服务能力": 9,
+          "响应时间": 0,
+          "总成本": 9
+        },
+        {
+          "dvm_row_id": "推进类型",
+          "速度增量": 9,
+          "服务能力": 0,
+          "响应时间": 9,
+          "总成本": 3
+        },
+        {
+          "dvm_row_id": "燃料水平",
+          "速度增量": 9,
+          "服务能力": 0,
+          "响应时间": 0,
+          "总成本": 9
+        },
+        {
+          "dvm_row_id": "载荷类型",
+          "速度增量": 0,
+          "服务能力": 3,
+          "响应时间": 0,
+          "总成本": 3
+        },
+        {
+          "dvm_row_id": "传感器类型",
+          "速度增量": 0,
+          "服务能力": 1,
+          "响应时间": 1,
+          "总成本": 3
+        },
+        {
+          "dvm_row_id": "通信下行链路",
+          "速度增量": 0,
+          "服务能力": 0,
+          "响应时间": 1,
+          "总成本": 3
+        }
+      ],
+      "mission": {
+        "title": "太空拖船",
+        "description": "(1)核心问题：应如何设计一款轨道转移飞行器，使其能够为具有不同偏好的各类潜在客户提供服务？\n(2)价值主张：在尽可能长的时间内，以最优方式满足客户对性能和成本的需求。",
+        "key_objectives": [
+          "(1)目的清单：最大化客户满意度；最大化服务寿命；最小化成本",
+          "(2)目标清单：满足任务需求；长服务寿命；低成本"
+        ],
+        "value_proposition": "(1)核心问题：应如何设计一款轨道转移飞行器，使其能够为具有不同偏好的各类潜在客户提供服务？\n(2)价值主张：在尽可能长的时间内，以最优方式满足客户对性能和成本的需求。"
+      },
+      "ui_state": {
+        "mission_title": "太空拖船",
+        "mission_desc": "(1)核心问题：应如何设计一款轨道转移飞行器，使其能够为具有不同偏好的各类潜在客户提供服务？\n(2)价值主张：在尽可能长的时间内，以最优方式满足客户对性能和成本的需求。",
+        "threshold": 0.65
+      }
+    },
+    "phase2": {
+      "n_squared_diagram": {
+        "name": "N-Squared Diagram",
+        "description": "",
+        "metadata": {},
+        "nodes": [],
+        "edges": []
+      },
+      "components": [
+        {
+          "id": 1,
+          "name": "载荷系统",
+          "type": "facility",
+          "description": "任务基本信息与功能载荷要求"
+        },
+        {
+          "id": 2,
+          "name": "航电系统",
+          "type": "hardware",
+          "description": "航电与制导"
+        },
+        {
+          "id": 3,
+          "name": "推进系统",
+          "type": "hardware",
+          "description": "动力"
+        },
+        {
+          "id": 4,
+          "name": "质量结构",
+          "type": "hardware",
+          "description": "设计"
+        },
+        {
+          "id": 5,
+          "name": "性能分析",
+          "type": "software",
+          "description": ""
+        },
+        {
+          "id": 6,
+          "name": "效能评估",
+          "type": "software",
+          "description": ""
+        },
+        {
+          "id": 7,
+          "name": "成本估算",
+          "type": "software",
+          "description": ""
+        }
+      ],
+      "interfaces": [
+        {
+          "id": 1,
+          "from": "载荷系统",
+          "to": "航电系统",
+          "type": "data",
+          "description": ""
+        },
+        {
+          "id": 2,
+          "from": "载荷系统",
+          "to": "航电系统",
+          "type": "control",
+          "description": ""
+        },
+        {
+          "id": 3,
+          "from": "载荷系统",
+          "to": "质量结构",
+          "type": "physical",
+          "description": "载荷质量"
+        },
+        {
+          "id": 4,
+          "from": "载荷系统",
+          "to": "效能评估",
+          "type": "control",
+          "description": "抓取能力"
+        },
+        {
+          "id": 5,
+          "from": "航电系统",
+          "to": "质量结构",
+          "type": "physical",
+          "description": "航电质量"
+        },
+        {
+          "id": 6,
+          "from": "航电系统",
+          "to": "效能评估",
+          "type": "information",
+          "description": "感知能力"
+        },
+        {
+          "id": 7,
+          "from": "航电系统",
+          "to": "成本估算",
+          "type": "information",
+          "description": "航电复杂度"
+        },
+        {
+          "id": 8,
+          "from": "推进系统",
+          "to": "质量结构",
+          "type": "physical",
+          "description": "推进质量"
+        },
+        {
+          "id": 9,
+          "from": "推进系统",
+          "to": "性能分析",
+          "type": "physical",
+          "description": "比冲"
+        },
+        {
+          "id": 10,
+          "from": "推进系统",
+          "to": "性能分析",
+          "type": "information",
+          "description": "响应类型"
+        },
+        {
+          "id": 11,
+          "from": "推进系统",
+          "to": "成本估算",
+          "type": "information",
+          "description": "推进复杂度"
+        },
+        {
+          "id": 12,
+          "from": "质量结构",
+          "to": "成本估算",
+          "type": "physical",
+          "description": "干重"
+        },
+        {
+          "id": 13,
+          "from": "质量结构",
+          "to": "性能分析",
+          "type": "physical",
+          "description": "干重"
+        },
+        {
+          "id": 14,
+          "from": "质量结构",
+          "to": "性能分析",
+          "type": "physical",
+          "description": "湿重"
+        }
+      ],
+      "ui_state": {
+        "component_name": "",
+        "component_type": "software",
+        "component_desc": "",
+        "interface_type": "physical",
+        "interface_desc": "",
+        "timestamp": "2026-01-10T16:27:53.245658",
+        "interface_from": "质量结构",
+        "interface_to": "性能分析"
+      }
+    },
+    "phase3": {
+      "design_alternatives": [
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 100,
+          "name": "Alt_0",
+          "design_id": 206
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 300,
+          "name": "Alt_1",
+          "design_id": 207
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 1000,
+          "name": "Alt_2",
+          "design_id": 208
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 3000,
+          "name": "Alt_3",
+          "design_id": 209
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 10000,
+          "name": "Alt_4",
+          "design_id": 210
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 30000,
+          "name": "Alt_5",
+          "design_id": 211
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 100,
+          "name": "Alt_6",
+          "design_id": 212
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 300,
+          "name": "Alt_7",
+          "design_id": 213
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 1000,
+          "name": "Alt_8",
+          "design_id": 214
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 3000,
+          "name": "Alt_9",
+          "design_id": 215
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 10000,
+          "name": "Alt_10",
+          "design_id": 216
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 30000,
+          "name": "Alt_11",
+          "design_id": 217
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 100,
+          "name": "Alt_12",
+          "design_id": 218
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 300,
+          "name": "Alt_13",
+          "design_id": 219
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 1000,
+          "name": "Alt_14",
+          "design_id": 220
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 3000,
+          "name": "Alt_15",
+          "design_id": 221
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 10000,
+          "name": "Alt_16",
+          "design_id": 222
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 30000,
+          "name": "Alt_17",
+          "design_id": 223
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 100,
+          "name": "Alt_18",
+          "design_id": 224
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 300,
+          "name": "Alt_19",
+          "design_id": 225
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 1000,
+          "name": "Alt_20",
+          "design_id": 226
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 3000,
+          "name": "Alt_21",
+          "design_id": 227
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 10000,
+          "name": "Alt_22",
+          "design_id": 228
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 30000,
+          "name": "Alt_23",
+          "design_id": 229
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 100,
+          "name": "Alt_24",
+          "design_id": 230
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 300,
+          "name": "Alt_25",
+          "design_id": 231
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 1000,
+          "name": "Alt_26",
+          "design_id": 232
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 3000,
+          "name": "Alt_27",
+          "design_id": 233
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 10000,
+          "name": "Alt_28",
+          "design_id": 234
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 30000,
+          "name": "Alt_29",
+          "design_id": 235
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 100,
+          "name": "Alt_30",
+          "design_id": 236
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 300,
+          "name": "Alt_31",
+          "design_id": 237
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 1000,
+          "name": "Alt_32",
+          "design_id": 238
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 3000,
+          "name": "Alt_33",
+          "design_id": 239
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 10000,
+          "name": "Alt_34",
+          "design_id": 240
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 30000,
+          "name": "Alt_35",
+          "design_id": 241
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 100,
+          "name": "Alt_36",
+          "design_id": 242
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 300,
+          "name": "Alt_37",
+          "design_id": 243
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 1000,
+          "name": "Alt_38",
+          "design_id": 244
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 3000,
+          "name": "Alt_39",
+          "design_id": 245
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 10000,
+          "name": "Alt_40",
+          "design_id": 246
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 30000,
+          "name": "Alt_41",
+          "design_id": 247
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 100,
+          "name": "Alt_42",
+          "design_id": 248
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 300,
+          "name": "Alt_43",
+          "design_id": 249
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 1000,
+          "name": "Alt_44",
+          "design_id": 250
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 3000,
+          "name": "Alt_45",
+          "design_id": 251
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 10000,
+          "name": "Alt_46",
+          "design_id": 252
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 30000,
+          "name": "Alt_47",
+          "design_id": 253
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 100,
+          "name": "Alt_48",
+          "design_id": 254
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 300,
+          "name": "Alt_49",
+          "design_id": 255
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 1000,
+          "name": "Alt_50",
+          "design_id": 256
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 3000,
+          "name": "Alt_51",
+          "design_id": 257
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 10000,
+          "name": "Alt_52",
+          "design_id": 258
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 30000,
+          "name": "Alt_53",
+          "design_id": 259
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 100,
+          "name": "Alt_54",
+          "design_id": 260
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 300,
+          "name": "Alt_55",
+          "design_id": 261
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 1000,
+          "name": "Alt_56",
+          "design_id": 262
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 3000,
+          "name": "Alt_57",
+          "design_id": 263
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 10000,
+          "name": "Alt_58",
+          "design_id": 264
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 30000,
+          "name": "Alt_59",
+          "design_id": 265
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 100,
+          "name": "Alt_60",
+          "design_id": 266
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 300,
+          "name": "Alt_61",
+          "design_id": 267
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 1000,
+          "name": "Alt_62",
+          "design_id": 268
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 3000,
+          "name": "Alt_63",
+          "design_id": 269
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 10000,
+          "name": "Alt_64",
+          "design_id": 270
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 30000,
+          "name": "Alt_65",
+          "design_id": 271
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 100,
+          "name": "Alt_66",
+          "design_id": 272
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 300,
+          "name": "Alt_67",
+          "design_id": 273
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 1000,
+          "name": "Alt_68",
+          "design_id": 274
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 3000,
+          "name": "Alt_69",
+          "design_id": 275
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 10000,
+          "name": "Alt_70",
+          "design_id": 276
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 30000,
+          "name": "Alt_71",
+          "design_id": 277
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 100,
+          "name": "Alt_72",
+          "design_id": 278
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 300,
+          "name": "Alt_73",
+          "design_id": 279
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 1000,
+          "name": "Alt_74",
+          "design_id": 280
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 3000,
+          "name": "Alt_75",
+          "design_id": 281
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 10000,
+          "name": "Alt_76",
+          "design_id": 282
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 30000,
+          "name": "Alt_77",
+          "design_id": 283
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 100,
+          "name": "Alt_78",
+          "design_id": 284
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 300,
+          "name": "Alt_79",
+          "design_id": 285
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 1000,
+          "name": "Alt_80",
+          "design_id": 286
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 3000,
+          "name": "Alt_81",
+          "design_id": 287
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 10000,
+          "name": "Alt_82",
+          "design_id": 288
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 30000,
+          "name": "Alt_83",
+          "design_id": 289
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 100,
+          "name": "Alt_84",
+          "design_id": 290
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 300,
+          "name": "Alt_85",
+          "design_id": 291
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 1000,
+          "name": "Alt_86",
+          "design_id": 292
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 3000,
+          "name": "Alt_87",
+          "design_id": 293
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 10000,
+          "name": "Alt_88",
+          "design_id": 294
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 30000,
+          "name": "Alt_89",
+          "design_id": 295
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 100,
+          "name": "Alt_90",
+          "design_id": 296
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 300,
+          "name": "Alt_91",
+          "design_id": 297
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 1000,
+          "name": "Alt_92",
+          "design_id": 298
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 3000,
+          "name": "Alt_93",
+          "design_id": 299
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 10000,
+          "name": "Alt_94",
+          "design_id": 300
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 30000,
+          "name": "Alt_95",
+          "design_id": 301
+        }
+      ],
+      "doe_config": {
+        "method": "none",
+        "orthogonal_table": "L8",
+        "lhs_samples": 500,
+        "estimated_samples": 96,
+        "full_combinations": 96,
+        "var_configs": [
+          {
+            "name": "有效载荷",
+            "type": "discrete",
+            "n_values": 4,
+            "selected_values": [
+              300,
+              1000,
+              3000,
+              5000
+            ]
+          },
+          {
+            "name": "推进类型",
+            "type": "categorical",
+            "n_values": 4,
+            "selected_values": [
+              1,
+              3,
+              5,
+              7
+            ]
+          },
+          {
+            "name": "燃料水平",
+            "type": "discrete",
+            "n_values": 6,
+            "selected_values": [
+              100,
+              300,
+              1000,
+              3000,
+              10000,
+              30000
+            ]
+          }
+        ]
+      },
+      "sampling_config": null,
+      "cartesian_engine": {
+        "n_variables": 3,
+        "total_combinations": 96,
+        "details": [
+          {
+            "name": "有效载荷",
+            "type": "discrete",
+            "n_values": 4,
+            "values_preview": [
+              300,
+              1000,
+              3000,
+              5000
+            ]
+          },
+          {
+            "name": "推进类型",
+            "type": "categorical",
+            "n_values": 4,
+            "values_preview": [
+              1.0,
+              3.0,
+              5.0,
+              7.0
+            ]
+          },
+          {
+            "name": "燃料水平",
+            "type": "discrete",
+            "n_values": 6,
+            "values_preview": [
+              100,
+              300,
+              1000,
+              3000,
+              10000
+            ]
+          }
+        ]
+      },
+      "ui_state": {
+        "selected_variables": [
+          "有效载荷",
+          "推进类型",
+          "燃料水平"
+        ],
+        "enable_jitter": [],
+        "jitter_strength": 0.1
+      }
+    },
+    "phase4": {
+      "user_models": [
+        {
+          "name": "perf_速度增量",
+          "type": "performance",
+          "description": "Performance model for 速度增量",
+          "formula": "",
+          "parameters": {},
+          "code": "def calculate_速度增量(**design_vars):\r\n    \"\"\"\r\n    计算速度增量 (km/s)\r\n    对应 Phase 3 列名: '速度增量 (km/s)'\r\n    \"\"\"\r\n    import math\r\n\r\n    # ================= 内部配置 =================\r\n    G0 = 9.8  # 重力加速度 (m/s^2)\r\n    BMF = 1.0 # 平台质量分数\r\n    \r\n    # 推进参数表 (Key 对应 CSV 中的原始中文值)\r\n    PROP_LOOKUP = {\r\n        \"双组元推进\": {'isp': 300,  'base_mass': 0,    'tankage': 0.0},\r\n        \"低温推进\":   {'isp': 450,  'base_mass': 200,  'tankage': 0.0},\r\n        \"电推进\":     {'isp': 3000, 'base_mass': 500,  'tankage': 0.0},\r\n        \"核推进\":     {'isp': 1500, 'base_mass': 1200, 'tankage': 0.0}\r\n    }\r\n    DEFAULT_PROP = \"双组元推进\"\r\n    # ===========================================\r\n\r\n    # 1. 获取输入 (支持带单位的原始Key)\r\n    # 使用 .get() 并提供默认值以防数据缺失\r\n    payload = float(design_vars.get('有效载荷 (kg)', 0))\r\n    fuel = float(design_vars.get('燃料水平 (kg)', 0))\r\n    prop_type = design_vars.get('推进类型 (无量纲)', DEFAULT_PROP)\r\n\r\n    # 2. 获取推进参数\r\n    specs = PROP_LOOKUP.get(prop_type, PROP_LOOKUP[DEFAULT_PROP])\r\n    \r\n    # 3. 计算中间质量 (kg)\r\n    # 平台质量 = 载荷*BMF + 基础质量 + 燃料*储箱系数\r\n    mass_platform = (payload * BMF) + specs['base_mass'] + (fuel * specs['tankage'])\r\n    mass_dry = mass_platform + payload\r\n    mass_wet = mass_dry + fuel\r\n\r\n    # 4. 计算 Delta V (齐奥尔科夫斯基公式)\r\n    # 结果除以 1000 转换为 km/s\r\n    if mass_dry > 0:\r\n        dv = (G0 * specs['isp'] * math.log(mass_wet / mass_dry)) / 1000.0\r\n        return dv\r\n    else:\r\n        return 0.0"
+        },
+        {
+          "name": "perf_服务能力",
+          "type": "performance",
+          "description": "Performance model for 服务能力",
+          "formula": "",
+          "parameters": {},
+          "code": "def calculate_服务能力(**design_vars):\r\n    \"\"\"\r\n    计算服务能力 (0-4 序数)\r\n    对应 Phase 3 列名: '服务能力 (序数)'\r\n    \"\"\"\r\n    # 1. 获取输入\r\n    payload = float(design_vars.get('有效载荷 (kg)', 0))\r\n\r\n    # 2. 映射逻辑 (根据 Excel 阈值)\r\n    # 5000 -> 4 (Extreme)\r\n    # 3000 -> 3 (High)\r\n    # 1000 -> 2 (Medium)\r\n    # 300  -> 1 (Low)\r\n    # 0    -> 0 (None)\r\n    \r\n    if payload >= 5000:\r\n        return 4\r\n    elif payload >= 3000:\r\n        return 3\r\n    elif payload >= 1000:\r\n        return 2\r\n    elif payload >= 300:\r\n        return 1\r\n    else:\r\n        return 0"
+        },
+        {
+          "name": "perf_响应时间",
+          "type": "performance",
+          "description": "Performance model for 响应时间",
+          "formula": "",
+          "parameters": {},
+          "code": "def calculate_响应时间(**design_vars):\r\n    \"\"\"\r\n    计算响应时间 (0=Fast, 1=Slow)\r\n    对应 Phase 3 列名: '响应时间 (分类变量)'\r\n    \"\"\"\r\n    # ================= 内部配置 =================\r\n    # 定义哪些推进类型是快速响应的 (True = Fast)\r\n    IS_FAST_LOOKUP = {\r\n        \"双组元推进\": True,\r\n        \"低温推进\":   True,\r\n        \"电推进\":     False, # 电推进较慢\r\n        \"核推进\":     True\r\n    }\r\n    DEFAULT_PROP = \"双组元推进\"\r\n    # ===========================================\r\n\r\n    # 1. 获取输入\r\n    prop_type = design_vars.get('推进类型 (无量纲)', DEFAULT_PROP)\r\n\r\n    # 2. 查表判断\r\n    is_fast = IS_FAST_LOOKUP.get(prop_type, True)\r\n\r\n    # 3. 输出数值 (0=Fast/Good, 1=Slow/Bad)\r\n    if is_fast:\r\n        return 0\r\n    else:\r\n        return 1"
+        },
+        {
+          "name": "perf_总成本",
+          "type": "performance",
+          "description": "Performance model for 总成本",
+          "formula": "",
+          "parameters": {},
+          "code": "def calculate_总成本(**design_vars):\r\n    \"\"\"\r\n    计算总成本 (百万美元)\r\n    对应 Phase 3 列名: '总成本 ($M)'\r\n    \"\"\"\r\n    # ================= 内部配置 =================\r\n    BMF = 1.0\r\n    # 成本系数 ($M/kg)\r\n    COST_WET = 0.02  # 湿质量成本\r\n    COST_DRY = 0.15  # 干质量成本\r\n    \r\n    PROP_LOOKUP = {\r\n        \"双组元推进\": {'base_mass': 0,    'tankage': 0.0},\r\n        \"低温推进\":   {'base_mass': 200,  'tankage': 0.0},\r\n        \"电推进\":     {'base_mass': 500,  'tankage': 0.0},\r\n        \"核推进\":     {'base_mass': 1200, 'tankage': 0.0}\r\n    }\r\n    DEFAULT_PROP = \"双组元推进\"\r\n    # ===========================================\r\n\r\n    # 1. 获取输入\r\n    payload = float(design_vars.get('有效载荷 (kg)', 0))\r\n    fuel = float(design_vars.get('燃料水平 (kg)', 0))\r\n    prop_type = design_vars.get('推进类型 (无量纲)', DEFAULT_PROP)\r\n\r\n    # 2. 获取参数\r\n    specs = PROP_LOOKUP.get(prop_type, PROP_LOOKUP[DEFAULT_PROP])\r\n\r\n    # 3. 复算质量 (因为 4.1 各函数相互独立，需重新计算)\r\n    mass_platform = (payload * BMF) + specs['base_mass'] + (fuel * specs['tankage'])\r\n    mass_dry = mass_platform + payload\r\n    mass_wet = mass_dry + fuel\r\n\r\n    # 4. 计算成本\r\n    cost = (COST_WET * mass_wet) + (COST_DRY * mass_dry)\r\n    \r\n    return cost"
+        },
+        {
+          "name": "phase4_weights_mau",
+          "type": "performance",
+          "description": "weights model",
+          "formula": null,
+          "parameters": null,
+          "code": "def calculate_mau(**design_vars):\r\n    \"\"\"\r\n    计算多属性效用 (MAU)\r\n    调用 4.2 编辑器 1 中定义的 utility 函数\r\n    \"\"\"\r\n    # ================= 权重配置 =================\r\n    # 这里的 Key 必须与 utility 函数名去除 'utility_' 前缀后的部分匹配吗？\r\n    # 不，这里是手动调用的，所以我们可以直接指定权重对应关系。\r\n    \r\n    W_DV = 0.6   # 速度增量权重\r\n    W_CAP = 0.3  # 服务能力权重\r\n    W_RES = 0.1  # 响应时间权重\r\n    # 总和 = 1.0\r\n    # ===========================================\r\n\r\n    total_mau = 0.0\r\n    \r\n    # 1. 速度增量效用\r\n    # 尝试调用全局环境中的函数，或者如果已计算好存入 design_vars 则直接取值\r\n    # 在 Phase 5 的标准执行流中，utility 函数通常是可调用的\r\n    try:\r\n        u_dv = utility_速度增量__km_s_(**design_vars)\r\n        total_mau += u_dv * W_DV\r\n    except Exception as e:\r\n        # 容错：如果计算失败视为0\r\n        print(f\"MAU Error (DeltaV): {e}\")\r\n        pass\r\n\r\n    # 2. 服务能力效用\r\n    try:\r\n        u_cap = utility_服务能力__序数_(**design_vars)\r\n        total_mau += u_cap * W_CAP\r\n    except Exception as e:\r\n        print(f\"MAU Error (Capability): {e}\")\r\n        pass\r\n\r\n    # 3. 响应时间效用\r\n    try:\r\n        u_res = utility_响应时间__分类变量_(**design_vars)\r\n        total_mau += u_res * W_RES\r\n    except Exception as e:\r\n        print(f\"MAU Error (Response): {e}\")\r\n        pass\r\n\r\n    # 注意：通常成本(Total Cost)不计入 MAU，而是作为独立的坐标轴进行 Cost-Benefit 分析\r\n    \r\n    return total_mau"
+        },
+        {
+          "name": "perf_速度增量",
+          "type": "performance",
+          "description": "Performance model for 速度增量",
+          "formula": "",
+          "parameters": {},
+          "code": "def calculate_速度增量(**design_vars):\r\n    \"\"\"\r\n    计算速度增量 (km/s)\r\n    对应 Phase 3 列名: '速度增量 (km/s)'\r\n    \"\"\"\r\n    import math\r\n\r\n    # ================= 内部配置 =================\r\n    G0 = 9.8  # 重力加速度 (m/s^2)\r\n    BMF = 1.0 # 平台质量分数\r\n    \r\n    # 推进参数表 (Key 对应 CSV 中的原始中文值)\r\n    PROP_LOOKUP = {\r\n        \"双组元推进\": {'isp': 300,  'base_mass': 0,    'tankage': 0.0},\r\n        \"低温推进\":   {'isp': 450,  'base_mass': 200,  'tankage': 0.0},\r\n        \"电推进\":     {'isp': 3000, 'base_mass': 500,  'tankage': 0.0},\r\n        \"核推进\":     {'isp': 1500, 'base_mass': 1200, 'tankage': 0.0}\r\n    }\r\n    DEFAULT_PROP = \"双组元推进\"\r\n    # ===========================================\r\n\r\n    # 1. 获取输入 (支持带单位的原始Key)\r\n    # 使用 .get() 并提供默认值以防数据缺失\r\n    payload = float(design_vars.get('有效载荷 (kg)', 0))\r\n    fuel = float(design_vars.get('燃料水平 (kg)', 0))\r\n    prop_type = design_vars.get('推进类型 (无量纲)', DEFAULT_PROP)\r\n\r\n    # 2. 获取推进参数\r\n    specs = PROP_LOOKUP.get(prop_type, PROP_LOOKUP[DEFAULT_PROP])\r\n    \r\n    # 3. 计算中间质量 (kg)\r\n    # 平台质量 = 载荷*BMF + 基础质量 + 燃料*储箱系数\r\n    mass_platform = (payload * BMF) + specs['base_mass'] + (fuel * specs['tankage'])\r\n    mass_dry = mass_platform + payload\r\n    mass_wet = mass_dry + fuel\r\n\r\n    # 4. 计算 Delta V (齐奥尔科夫斯基公式)\r\n    # 结果除以 1000 转换为 km/s\r\n    if mass_dry > 0:\r\n        dv = (G0 * specs['isp'] * math.log(mass_wet / mass_dry)) / 1000.0\r\n        return dv\r\n    else:\r\n        return 0.0"
+        },
+        {
+          "name": "perf_服务能力",
+          "type": "performance",
+          "description": "Performance model for 服务能力",
+          "formula": "",
+          "parameters": {},
+          "code": "def calculate_服务能力(**design_vars):\r\n    \"\"\"\r\n    计算服务能力 (0-4 序数)\r\n    对应 Phase 3 列名: '服务能力 (序数)'\r\n    \"\"\"\r\n    # 1. 获取输入\r\n    payload = float(design_vars.get('有效载荷 (kg)', 0))\r\n\r\n    # 2. 映射逻辑 (根据 Excel 阈值)\r\n    # 5000 -> 4 (Extreme)\r\n    # 3000 -> 3 (High)\r\n    # 1000 -> 2 (Medium)\r\n    # 300  -> 1 (Low)\r\n    # 0    -> 0 (None)\r\n    \r\n    if payload >= 5000:\r\n        return 4\r\n    elif payload >= 3000:\r\n        return 3\r\n    elif payload >= 1000:\r\n        return 2\r\n    elif payload >= 300:\r\n        return 1\r\n    else:\r\n        return 0"
+        },
+        {
+          "name": "perf_响应时间",
+          "type": "performance",
+          "description": "Performance model for 响应时间",
+          "formula": "",
+          "parameters": {},
+          "code": "def calculate_响应时间(**design_vars):\r\n    \"\"\"\r\n    计算响应时间 (0=Fast, 1=Slow)\r\n    对应 Phase 3 列名: '响应时间 (分类变量)'\r\n    \"\"\"\r\n    # ================= 内部配置 =================\r\n    # 定义哪些推进类型是快速响应的 (True = Fast)\r\n    IS_FAST_LOOKUP = {\r\n        \"双组元推进\": True,\r\n        \"低温推进\":   True,\r\n        \"电推进\":     False, # 电推进较慢\r\n        \"核推进\":     True\r\n    }\r\n    DEFAULT_PROP = \"双组元推进\"\r\n    # ===========================================\r\n\r\n    # 1. 获取输入\r\n    prop_type = design_vars.get('推进类型 (无量纲)', DEFAULT_PROP)\r\n\r\n    # 2. 查表判断\r\n    is_fast = IS_FAST_LOOKUP.get(prop_type, True)\r\n\r\n    # 3. 输出数值 (0=Fast/Good, 1=Slow/Bad)\r\n    if is_fast:\r\n        return 0\r\n    else:\r\n        return 1"
+        },
+        {
+          "name": "perf_总成本",
+          "type": "performance",
+          "description": "Performance model for 总成本",
+          "formula": "",
+          "parameters": {},
+          "code": "def calculate_总成本(**design_vars):\r\n    \"\"\"\r\n    计算总成本 (百万美元)\r\n    对应 Phase 3 列名: '总成本 ($M)'\r\n    \"\"\"\r\n    # ================= 内部配置 =================\r\n    BMF = 1.0\r\n    # 成本系数 ($M/kg)\r\n    COST_WET = 0.02  # 湿质量成本\r\n    COST_DRY = 0.15  # 干质量成本\r\n    \r\n    PROP_LOOKUP = {\r\n        \"双组元推进\": {'base_mass': 0,    'tankage': 0.0},\r\n        \"低温推进\":   {'base_mass': 200,  'tankage': 0.0},\r\n        \"电推进\":     {'base_mass': 500,  'tankage': 0.0},\r\n        \"核推进\":     {'base_mass': 1200, 'tankage': 0.0}\r\n    }\r\n    DEFAULT_PROP = \"双组元推进\"\r\n    # ===========================================\r\n\r\n    # 1. 获取输入\r\n    payload = float(design_vars.get('有效载荷 (kg)', 0))\r\n    fuel = float(design_vars.get('燃料水平 (kg)', 0))\r\n    prop_type = design_vars.get('推进类型 (无量纲)', DEFAULT_PROP)\r\n\r\n    # 2. 获取参数\r\n    specs = PROP_LOOKUP.get(prop_type, PROP_LOOKUP[DEFAULT_PROP])\r\n\r\n    # 3. 复算质量 (因为 4.1 各函数相互独立，需重新计算)\r\n    mass_platform = (payload * BMF) + specs['base_mass'] + (fuel * specs['tankage'])\r\n    mass_dry = mass_platform + payload\r\n    mass_wet = mass_dry + fuel\r\n\r\n    # 4. 计算成本\r\n    cost = (COST_WET * mass_wet) + (COST_DRY * mass_dry)\r\n    \r\n    return cost"
+        }
+      ],
+      "perf_models_dict": {
+        "速度增量": "def calculate_速度增量(**design_vars):\r\n    \"\"\"\r\n    计算速度增量 (km/s)\r\n    对应 Phase 3 列名: '速度增量 (km/s)'\r\n    \"\"\"\r\n    import math\r\n\r\n    # ================= 内部配置 =================\r\n    G0 = 9.8  # 重力加速度 (m/s^2)\r\n    BMF = 1.0 # 平台质量分数\r\n    \r\n    # 推进参数表 (Key 对应 CSV 中的原始中文值)\r\n    PROP_LOOKUP = {\r\n        \"双组元推进\": {'isp': 300,  'base_mass': 0,    'tankage': 0.0},\r\n        \"低温推进\":   {'isp': 450,  'base_mass': 200,  'tankage': 0.0},\r\n        \"电推进\":     {'isp': 3000, 'base_mass': 500,  'tankage': 0.0},\r\n        \"核推进\":     {'isp': 1500, 'base_mass': 1200, 'tankage': 0.0}\r\n    }\r\n    DEFAULT_PROP = \"双组元推进\"\r\n    # ===========================================\r\n\r\n    # 1. 获取输入 (支持带单位的原始Key)\r\n    # 使用 .get() 并提供默认值以防数据缺失\r\n    payload = float(design_vars.get('有效载荷 (kg)', 0))\r\n    fuel = float(design_vars.get('燃料水平 (kg)', 0))\r\n    prop_type = design_vars.get('推进类型 (无量纲)', DEFAULT_PROP)\r\n\r\n    # 2. 获取推进参数\r\n    specs = PROP_LOOKUP.get(prop_type, PROP_LOOKUP[DEFAULT_PROP])\r\n    \r\n    # 3. 计算中间质量 (kg)\r\n    # 平台质量 = 载荷*BMF + 基础质量 + 燃料*储箱系数\r\n    mass_platform = (payload * BMF) + specs['base_mass'] + (fuel * specs['tankage'])\r\n    mass_dry = mass_platform + payload\r\n    mass_wet = mass_dry + fuel\r\n\r\n    # 4. 计算 Delta V (齐奥尔科夫斯基公式)\r\n    # 结果除以 1000 转换为 km/s\r\n    if mass_dry > 0:\r\n        dv = (G0 * specs['isp'] * math.log(mass_wet / mass_dry)) / 1000.0\r\n        return dv\r\n    else:\r\n        return 0.0",
+        "服务能力": "def calculate_服务能力(**design_vars):\r\n    \"\"\"\r\n    计算服务能力 (0-4 序数)\r\n    对应 Phase 3 列名: '服务能力 (序数)'\r\n    \"\"\"\r\n    # 1. 获取输入\r\n    payload = float(design_vars.get('有效载荷 (kg)', 0))\r\n\r\n    # 2. 映射逻辑 (根据 Excel 阈值)\r\n    # 5000 -> 4 (Extreme)\r\n    # 3000 -> 3 (High)\r\n    # 1000 -> 2 (Medium)\r\n    # 300  -> 1 (Low)\r\n    # 0    -> 0 (None)\r\n    \r\n    if payload >= 5000:\r\n        return 4\r\n    elif payload >= 3000:\r\n        return 3\r\n    elif payload >= 1000:\r\n        return 2\r\n    elif payload >= 300:\r\n        return 1\r\n    else:\r\n        return 0",
+        "响应时间": "def calculate_响应时间(**design_vars):\r\n    \"\"\"\r\n    计算响应时间 (0=Fast, 1=Slow)\r\n    对应 Phase 3 列名: '响应时间 (分类变量)'\r\n    \"\"\"\r\n    # ================= 内部配置 =================\r\n    # 定义哪些推进类型是快速响应的 (True = Fast)\r\n    IS_FAST_LOOKUP = {\r\n        \"双组元推进\": True,\r\n        \"低温推进\":   True,\r\n        \"电推进\":     False, # 电推进较慢\r\n        \"核推进\":     True\r\n    }\r\n    DEFAULT_PROP = \"双组元推进\"\r\n    # ===========================================\r\n\r\n    # 1. 获取输入\r\n    prop_type = design_vars.get('推进类型 (无量纲)', DEFAULT_PROP)\r\n\r\n    # 2. 查表判断\r\n    is_fast = IS_FAST_LOOKUP.get(prop_type, True)\r\n\r\n    # 3. 输出数值 (0=Fast/Good, 1=Slow/Bad)\r\n    if is_fast:\r\n        return 0\r\n    else:\r\n        return 1",
+        "总成本": "def calculate_总成本(**design_vars):\r\n    \"\"\"\r\n    计算总成本 (百万美元)\r\n    对应 Phase 3 列名: '总成本 ($M)'\r\n    \"\"\"\r\n    # ================= 内部配置 =================\r\n    BMF = 1.0\r\n    # 成本系数 ($M/kg)\r\n    COST_WET = 0.02  # 湿质量成本\r\n    COST_DRY = 0.15  # 干质量成本\r\n    \r\n    PROP_LOOKUP = {\r\n        \"双组元推进\": {'base_mass': 0,    'tankage': 0.0},\r\n        \"低温推进\":   {'base_mass': 200,  'tankage': 0.0},\r\n        \"电推进\":     {'base_mass': 500,  'tankage': 0.0},\r\n        \"核推进\":     {'base_mass': 1200, 'tankage': 0.0}\r\n    }\r\n    DEFAULT_PROP = \"双组元推进\"\r\n    # ===========================================\r\n\r\n    # 1. 获取输入\r\n    payload = float(design_vars.get('有效载荷 (kg)', 0))\r\n    fuel = float(design_vars.get('燃料水平 (kg)', 0))\r\n    prop_type = design_vars.get('推进类型 (无量纲)', DEFAULT_PROP)\r\n\r\n    # 2. 获取参数\r\n    specs = PROP_LOOKUP.get(prop_type, PROP_LOOKUP[DEFAULT_PROP])\r\n\r\n    # 3. 复算质量 (因为 4.1 各函数相互独立，需重新计算)\r\n    mass_platform = (payload * BMF) + specs['base_mass'] + (fuel * specs['tankage'])\r\n    mass_dry = mass_platform + payload\r\n    mass_wet = mass_dry + fuel\r\n\r\n    # 4. 计算成本\r\n    cost = (COST_WET * mass_wet) + (COST_DRY * mass_dry)\r\n    \r\n    return cost"
+      },
+      "utility_functions_dict": {
+        "速度增量": "def utility_速度增量(**design_vars):\r\n    \"\"\"\r\n    效用函数：速度增量\r\n    输入来源: calculate_速度增量__km_s_ 的输出\r\n    \"\"\"\r\n    # 1. 获取属性值\r\n    # 注意：在 Phase 5 中，属性计算结果会以同样的 Key 注入 design_vars\r\n    val = float(design_vars.get('速度增量 (km/s)', 0))\r\n    \r\n    # 2. 定义边界\r\n    MIN_VAL = 0.0\r\n    MAX_VAL = 12.0\r\n    \r\n    # 3. 线性插值 (越大越好)\r\n    if val <= MIN_VAL: return 0.0\r\n    if val >= MAX_VAL: return 1.0\r\n    return (val - MIN_VAL) / (MAX_VAL - MIN_VAL)",
+        "服务能力": "def utility_服务能力(**design_vars):\r\n    \"\"\"\r\n    效用函数：服务能力\r\n    输入来源: calculate_服务能力__序数_ 的输出\r\n    \"\"\"\r\n    val = float(design_vars.get('服务能力 (序数)', 0))\r\n    \r\n    # 简单的归一化 (0 到 4)\r\n    MAX_LEVEL = 4.0\r\n    \r\n    return min(max(val / MAX_LEVEL, 0.0), 1.0)",
+        "响应时间": "def utility_响应时间(**design_vars):\r\n    \"\"\"\r\n    效用函数：响应时间\r\n    输入来源: calculate_响应时间__分类变量_ 的输出\r\n    \"\"\"\r\n    val = float(design_vars.get('响应时间 (分类变量)', 1))\r\n    \r\n    # 逻辑：越小越好 (0 是理想值)\r\n    # 0 (Fast) -> 效用 1.0\r\n    # 1 (Slow) -> 效用 0.0\r\n    if val == 0:\r\n        return 1.0\r\n    else:\r\n        return 0.0",
+        "总成本": "def utility_总成本(**design_vars):\r\n    \"\"\"\r\n    效用函数：总成本 (通常用于独立的成本-效用权衡分析，不一定计入 MAU)\r\n    输入来源: calculate_总成本___M_ 的输出\r\n    \"\"\"\r\n    val = float(design_vars.get('总成本 ($M)', 0))\r\n    \r\n    # 假设一个简单的成本效用逻辑：越便宜越好\r\n    # 例如：0M 是理想的(1.0)，2000M 是不可接受的(0.0)\r\n    MIN_COST = 0.0\r\n    MAX_COST = 2000.0 \r\n    \r\n    if val >= MAX_COST: return 0.0\r\n    if val <= MIN_COST: return 1.0\r\n    \r\n    # 线性下降\r\n    return 1.0 - ((val - MIN_COST) / (MAX_COST - MIN_COST))"
+      },
+      "weights_mau_code": "def calculate_mau(**design_vars):\r\n    \"\"\"\r\n    计算多属性效用 (MAU)\r\n    调用 4.2 编辑器 1 中定义的 utility 函数\r\n    \"\"\"\r\n    # ================= 权重配置 =================\r\n    # 这里的 Key 必须与 utility 函数名去除 'utility_' 前缀后的部分匹配吗？\r\n    # 不，这里是手动调用的，所以我们可以直接指定权重对应关系。\r\n    \r\n    W_DV = 0.6   # 速度增量权重\r\n    W_CAP = 0.3  # 服务能力权重\r\n    W_RES = 0.1  # 响应时间权重\r\n    # 总和 = 1.0\r\n    # ===========================================\r\n\r\n    total_mau = 0.0\r\n    \r\n    # 1. 速度增量效用\r\n    # 尝试调用全局环境中的函数，或者如果已计算好存入 design_vars 则直接取值\r\n    # 在 Phase 5 的标准执行流中，utility 函数通常是可调用的\r\n    try:\r\n        u_dv = utility_速度增量__km_s_(**design_vars)\r\n        total_mau += u_dv * W_DV\r\n    except Exception as e:\r\n        # 容错：如果计算失败视为0\r\n        print(f\"MAU Error (DeltaV): {e}\")\r\n        pass\r\n\r\n    # 2. 服务能力效用\r\n    try:\r\n        u_cap = utility_服务能力__序数_(**design_vars)\r\n        total_mau += u_cap * W_CAP\r\n    except Exception as e:\r\n        print(f\"MAU Error (Capability): {e}\")\r\n        pass\r\n\r\n    # 3. 响应时间效用\r\n    try:\r\n        u_res = utility_响应时间__分类变量_(**design_vars)\r\n        total_mau += u_res * W_RES\r\n    except Exception as e:\r\n        print(f\"MAU Error (Response): {e}\")\r\n        pass\r\n\r\n    # 注意：通常成本(Total Cost)不计入 MAU，而是作为独立的坐标轴进行 Cost-Benefit 分析\r\n    \r\n    return total_mau",
+      "ui_state": {
+        "selected_attribute_model": "速度增量",
+        "selected_utility_attr": "总成本",
+        "timestamp": "2026-01-10T18:28:21.671425",
+        "draft_attr_code": "def calculate_速度增量(**design_vars):\r\n    \"\"\"\r\n    计算速度增量 (km/s)\r\n    对应 Phase 3 列名: '速度增量 (km/s)'\r\n    \"\"\"\r\n    import math\r\n\r\n    # ================= 内部配置 =================\r\n    G0 = 9.8  # 重力加速度 (m/s^2)\r\n    BMF = 1.0 # 平台质量分数\r\n    \r\n    # 推进参数表 (Key 对应 CSV 中的原始中文值)\r\n    PROP_LOOKUP = {\r\n        \"双组元推进\": {'isp': 300,  'base_mass': 0,    'tankage': 0.0},\r\n        \"低温推进\":   {'isp': 450,  'base_mass': 200,  'tankage': 0.0},\r\n        \"电推进\":     {'isp': 3000, 'base_mass': 500,  'tankage': 0.0},\r\n        \"核推进\":     {'isp': 1500, 'base_mass': 1200, 'tankage': 0.0}\r\n    }\r\n    DEFAULT_PROP = \"双组元推进\"\r\n    # ===========================================\r\n\r\n    # 1. 获取输入 (支持带单位的原始Key)\r\n    # 使用 .get() 并提供默认值以防数据缺失\r\n    payload = float(design_vars.get('有效载荷 (kg)', 0))\r\n    fuel = float(design_vars.get('燃料水平 (kg)', 0))\r\n    prop_type = design_vars.get('推进类型 (无量纲)', DEFAULT_PROP)\r\n\r\n    # 2. 获取推进参数\r\n    specs = PROP_LOOKUP.get(prop_type, PROP_LOOKUP[DEFAULT_PROP])\r\n    \r\n    # 3. 计算中间质量 (kg)\r\n    # 平台质量 = 载荷*BMF + 基础质量 + 燃料*储箱系数\r\n    mass_platform = (payload * BMF) + specs['base_mass'] + (fuel * specs['tankage'])\r\n    mass_dry = mass_platform + payload\r\n    mass_wet = mass_dry + fuel\r\n\r\n    # 4. 计算 Delta V (齐奥尔科夫斯基公式)\r\n    # 结果除以 1000 转换为 km/s\r\n    if mass_dry > 0:\r\n        dv = (G0 * specs['isp'] * math.log(mass_wet / mass_dry)) / 1000.0\r\n        return dv\r\n    else:\r\n        return 0.0",
+        "draft_util_code": "def utility_总成本(**design_vars):\r\n    \"\"\"\r\n    效用函数：总成本 (通常用于独立的成本-效用权衡分析，不一定计入 MAU)\r\n    输入来源: calculate_总成本___M_ 的输出\r\n    \"\"\"\r\n    val = float(design_vars.get('总成本 ($M)', 0))\r\n    \r\n    # 假设一个简单的成本效用逻辑：越便宜越好\r\n    # 例如：0M 是理想的(1.0)，2000M 是不可接受的(0.0)\r\n    MIN_COST = 0.0\r\n    MAX_COST = 2000.0 \r\n    \r\n    if val >= MAX_COST: return 0.0\r\n    if val <= MIN_COST: return 1.0\r\n    \r\n    # 线性下降\r\n    return 1.0 - ((val - MIN_COST) / (MAX_COST - MIN_COST))",
+        "draft_mau_code": "def calculate_mau(**design_vars):\r\n    \"\"\"\r\n    计算多属性效用 (MAU)\r\n    调用 4.2 编辑器 1 中定义的 utility 函数\r\n    \"\"\"\r\n    # ================= 权重配置 =================\r\n    # 这里的 Key 必须与 utility 函数名去除 'utility_' 前缀后的部分匹配吗？\r\n    # 不，这里是手动调用的，所以我们可以直接指定权重对应关系。\r\n    \r\n    W_DV = 0.6   # 速度增量权重\r\n    W_CAP = 0.3  # 服务能力权重\r\n    W_RES = 0.1  # 响应时间权重\r\n    # 总和 = 1.0\r\n    # ===========================================\r\n\r\n    total_mau = 0.0\r\n    \r\n    # 1. 速度增量效用\r\n    # 尝试调用全局环境中的函数，或者如果已计算好存入 design_vars 则直接取值\r\n    # 在 Phase 5 的标准执行流中，utility 函数通常是可调用的\r\n    try:\r\n        u_dv = utility_速度增量__km_s_(**design_vars)\r\n        total_mau += u_dv * W_DV\r\n    except Exception as e:\r\n        # 容错：如果计算失败视为0\r\n        print(f\"MAU Error (DeltaV): {e}\")\r\n        pass\r\n\r\n    # 2. 服务能力效用\r\n    try:\r\n        u_cap = utility_服务能力__序数_(**design_vars)\r\n        total_mau += u_cap * W_CAP\r\n    except Exception as e:\r\n        print(f\"MAU Error (Capability): {e}\")\r\n        pass\r\n\r\n    # 3. 响应时间效用\r\n    try:\r\n        u_res = utility_响应时间__分类变量_(**design_vars)\r\n        total_mau += u_res * W_RES\r\n    except Exception as e:\r\n        print(f\"MAU Error (Response): {e}\")\r\n        pass\r\n\r\n    # 注意：通常成本(Total Cost)不计入 MAU，而是作为独立的坐标轴进行 Cost-Benefit 分析\r\n    \r\n    return total_mau"
+      }
+    },
+    "phase5": {
+      "simulation_results": [],
+      "unified_results": [
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 100,
+          "name": "Alt_0",
+          "速度增量": 0.45320299869213954,
+          "服务能力": 1,
+          "响应时间": 0,
+          "总成本": 104,
+          "MAU": 0,
+          "design_id": 182
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 300,
+          "name": "Alt_1",
+          "速度增量": 1.1920674178380033,
+          "服务能力": 1,
+          "响应时间": 0,
+          "总成本": 108,
+          "MAU": 0,
+          "design_id": 183
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 1000,
+          "name": "Alt_2",
+          "速度增量": 2.883638003854475,
+          "服务能力": 1,
+          "响应时间": 0,
+          "总成本": 122,
+          "MAU": 0,
+          "design_id": 184
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 3000,
+          "name": "Alt_3",
+          "速度增量": 5.2677728395304815,
+          "服务能力": 1,
+          "响应时间": 0,
+          "总成本": 162,
+          "MAU": 0,
+          "design_id": 185
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 10000,
+          "name": "Alt_4",
+          "速度增量": 8.442738097158998,
+          "服务能力": 1,
+          "响应时间": 0,
+          "总成本": 302,
+          "MAU": 0,
+          "design_id": 186
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 30000,
+          "name": "Alt_5",
+          "速度增量": 11.559567360209517,
+          "服务能力": 1,
+          "响应时间": 0,
+          "总成本": 702,
+          "MAU": 0,
+          "design_id": 187
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 100,
+          "name": "Alt_6",
+          "速度增量": 0.45320299869213954,
+          "服务能力": 1,
+          "响应时间": 0,
+          "总成本": 104,
+          "MAU": 0,
+          "design_id": 188
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 300,
+          "name": "Alt_7",
+          "速度增量": 1.1920674178380033,
+          "服务能力": 1,
+          "响应时间": 0,
+          "总成本": 108,
+          "MAU": 0,
+          "design_id": 189
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 1000,
+          "name": "Alt_8",
+          "速度增量": 2.883638003854475,
+          "服务能力": 1,
+          "响应时间": 0,
+          "总成本": 122,
+          "MAU": 0,
+          "design_id": 190
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 3000,
+          "name": "Alt_9",
+          "速度增量": 5.2677728395304815,
+          "服务能力": 1,
+          "响应时间": 0,
+          "总成本": 162,
+          "MAU": 0,
+          "design_id": 191
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 10000,
+          "name": "Alt_10",
+          "速度增量": 8.442738097158998,
+          "服务能力": 1,
+          "响应时间": 0,
+          "总成本": 302,
+          "MAU": 0,
+          "design_id": 192
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 30000,
+          "name": "Alt_11",
+          "速度增量": 11.559567360209517,
+          "服务能力": 1,
+          "响应时间": 0,
+          "总成本": 702,
+          "MAU": 0,
+          "design_id": 193
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 100,
+          "name": "Alt_12",
+          "速度增量": 0.45320299869213954,
+          "服务能力": 1,
+          "响应时间": 0,
+          "总成本": 104,
+          "MAU": 0,
+          "design_id": 194
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 300,
+          "name": "Alt_13",
+          "速度增量": 1.1920674178380033,
+          "服务能力": 1,
+          "响应时间": 0,
+          "总成本": 108,
+          "MAU": 0,
+          "design_id": 195
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 1000,
+          "name": "Alt_14",
+          "速度增量": 2.883638003854475,
+          "服务能力": 1,
+          "响应时间": 0,
+          "总成本": 122,
+          "MAU": 0,
+          "design_id": 196
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 3000,
+          "name": "Alt_15",
+          "速度增量": 5.2677728395304815,
+          "服务能力": 1,
+          "响应时间": 0,
+          "总成本": 162,
+          "MAU": 0,
+          "design_id": 197
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 10000,
+          "name": "Alt_16",
+          "速度增量": 8.442738097158998,
+          "服务能力": 1,
+          "响应时间": 0,
+          "总成本": 302,
+          "MAU": 0,
+          "design_id": 198
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 30000,
+          "name": "Alt_17",
+          "速度增量": 11.559567360209517,
+          "服务能力": 1,
+          "响应时间": 0,
+          "总成本": 702,
+          "MAU": 0,
+          "design_id": 199
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 100,
+          "name": "Alt_18",
+          "速度增量": 0.45320299869213954,
+          "服务能力": 1,
+          "响应时间": 0,
+          "总成本": 104,
+          "MAU": 0,
+          "design_id": 200
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 300,
+          "name": "Alt_19",
+          "速度增量": 1.1920674178380033,
+          "服务能力": 1,
+          "响应时间": 0,
+          "总成本": 108,
+          "MAU": 0,
+          "design_id": 201
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 1000,
+          "name": "Alt_20",
+          "速度增量": 2.883638003854475,
+          "服务能力": 1,
+          "响应时间": 0,
+          "总成本": 122,
+          "MAU": 0,
+          "design_id": 202
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 3000,
+          "name": "Alt_21",
+          "速度增量": 5.2677728395304815,
+          "服务能力": 1,
+          "响应时间": 0,
+          "总成本": 162,
+          "MAU": 0,
+          "design_id": 203
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 10000,
+          "name": "Alt_22",
+          "速度增量": 8.442738097158998,
+          "服务能力": 1,
+          "响应时间": 0,
+          "总成本": 302,
+          "MAU": 0,
+          "design_id": 204
+        },
+        {
+          "有效载荷 (kg)": 300,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 30000,
+          "name": "Alt_23",
+          "速度增量": 11.559567360209517,
+          "服务能力": 1,
+          "响应时间": 0,
+          "总成本": 702,
+          "MAU": 0,
+          "design_id": 205
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 100,
+          "name": "Alt_24",
+          "速度增量": 0.14344308265813022,
+          "服务能力": 2,
+          "响应时间": 0,
+          "总成本": 342,
+          "MAU": 0,
+          "design_id": 206
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 300,
+          "name": "Alt_25",
+          "速度增量": 0.4109001105829664,
+          "服务能力": 2,
+          "响应时间": 0,
+          "总成本": 346,
+          "MAU": 0,
+          "design_id": 207
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 1000,
+          "name": "Alt_26",
+          "速度增量": 1.1920674178380033,
+          "服务能力": 2,
+          "响应时间": 0,
+          "总成本": 360,
+          "MAU": 0,
+          "design_id": 208
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 3000,
+          "name": "Alt_27",
+          "速度增量": 2.693894751710016,
+          "服务能力": 2,
+          "响应时间": 0,
+          "总成本": 400,
+          "MAU": 0,
+          "design_id": 209
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 10000,
+          "name": "Alt_28",
+          "速度增量": 5.2677728395304815,
+          "服务能力": 2,
+          "响应时间": 0,
+          "总成本": 540,
+          "MAU": 0,
+          "design_id": 210
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 30000,
+          "name": "Alt_29",
+          "速度增量": 8.151410843384957,
+          "服务能力": 2,
+          "响应时间": 0,
+          "总成本": 940,
+          "MAU": 0,
+          "design_id": 211
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 100,
+          "name": "Alt_30",
+          "速度增量": 0.14344308265813022,
+          "服务能力": 2,
+          "响应时间": 0,
+          "总成本": 342,
+          "MAU": 0,
+          "design_id": 212
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 300,
+          "name": "Alt_31",
+          "速度增量": 0.4109001105829664,
+          "服务能力": 2,
+          "响应时间": 0,
+          "总成本": 346,
+          "MAU": 0,
+          "design_id": 213
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 1000,
+          "name": "Alt_32",
+          "速度增量": 1.1920674178380033,
+          "服务能力": 2,
+          "响应时间": 0,
+          "总成本": 360,
+          "MAU": 0,
+          "design_id": 214
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 3000,
+          "name": "Alt_33",
+          "速度增量": 2.693894751710016,
+          "服务能力": 2,
+          "响应时间": 0,
+          "总成本": 400,
+          "MAU": 0,
+          "design_id": 215
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 10000,
+          "name": "Alt_34",
+          "速度增量": 5.2677728395304815,
+          "服务能力": 2,
+          "响应时间": 0,
+          "总成本": 540,
+          "MAU": 0,
+          "design_id": 216
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 30000,
+          "name": "Alt_35",
+          "速度增量": 8.151410843384957,
+          "服务能力": 2,
+          "响应时间": 0,
+          "总成本": 940,
+          "MAU": 0,
+          "design_id": 217
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 100,
+          "name": "Alt_36",
+          "速度增量": 0.14344308265813022,
+          "服务能力": 2,
+          "响应时间": 0,
+          "总成本": 342,
+          "MAU": 0,
+          "design_id": 218
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 300,
+          "name": "Alt_37",
+          "速度增量": 0.4109001105829664,
+          "服务能力": 2,
+          "响应时间": 0,
+          "总成本": 346,
+          "MAU": 0,
+          "design_id": 219
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 1000,
+          "name": "Alt_38",
+          "速度增量": 1.1920674178380033,
+          "服务能力": 2,
+          "响应时间": 0,
+          "总成本": 360,
+          "MAU": 0,
+          "design_id": 220
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 3000,
+          "name": "Alt_39",
+          "速度增量": 2.693894751710016,
+          "服务能力": 2,
+          "响应时间": 0,
+          "总成本": 400,
+          "MAU": 0,
+          "design_id": 221
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 10000,
+          "name": "Alt_40",
+          "速度增量": 5.2677728395304815,
+          "服务能力": 2,
+          "响应时间": 0,
+          "总成本": 540,
+          "MAU": 0,
+          "design_id": 222
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 30000,
+          "name": "Alt_41",
+          "速度增量": 8.151410843384957,
+          "服务能力": 2,
+          "响应时间": 0,
+          "总成本": 940,
+          "MAU": 0,
+          "design_id": 223
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 100,
+          "name": "Alt_42",
+          "速度增量": 0.14344308265813022,
+          "服务能力": 2,
+          "响应时间": 0,
+          "总成本": 342,
+          "MAU": 0,
+          "design_id": 224
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 300,
+          "name": "Alt_43",
+          "速度增量": 0.4109001105829664,
+          "服务能力": 2,
+          "响应时间": 0,
+          "总成本": 346,
+          "MAU": 0,
+          "design_id": 225
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 1000,
+          "name": "Alt_44",
+          "速度增量": 1.1920674178380033,
+          "服务能力": 2,
+          "响应时间": 0,
+          "总成本": 360,
+          "MAU": 0,
+          "design_id": 226
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 3000,
+          "name": "Alt_45",
+          "速度增量": 2.693894751710016,
+          "服务能力": 2,
+          "响应时间": 0,
+          "总成本": 400,
+          "MAU": 0,
+          "design_id": 227
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 10000,
+          "name": "Alt_46",
+          "速度增量": 5.2677728395304815,
+          "服务能力": 2,
+          "响应时间": 0,
+          "总成本": 540,
+          "MAU": 0,
+          "design_id": 228
+        },
+        {
+          "有效载荷 (kg)": 1000,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 30000,
+          "name": "Alt_47",
+          "速度增量": 8.151410843384957,
+          "服务能力": 2,
+          "响应时间": 0,
+          "总成本": 940,
+          "MAU": 0,
+          "design_id": 229
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 100,
+          "name": "Alt_48",
+          "速度增量": 0.04859614773655889,
+          "服务能力": 3,
+          "响应时间": 0,
+          "总成本": 1022,
+          "MAU": 0,
+          "design_id": 230
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 300,
+          "name": "Alt_49",
+          "速度增量": 0.14344308265813022,
+          "服务能力": 3,
+          "响应时间": 0,
+          "总成本": 1026,
+          "MAU": 0,
+          "design_id": 231
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 1000,
+          "name": "Alt_50",
+          "速度增量": 0.45320299869213954,
+          "服务能力": 3,
+          "响应时间": 0,
+          "总成本": 1040,
+          "MAU": 0,
+          "design_id": 232
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 3000,
+          "name": "Alt_51",
+          "速度增量": 1.1920674178380033,
+          "服务能力": 3,
+          "响应时间": 0,
+          "总成本": 1080,
+          "MAU": 0,
+          "design_id": 233
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 10000,
+          "name": "Alt_52",
+          "速度增量": 2.883638003854475,
+          "服务能力": 3,
+          "响应时间": 0,
+          "总成本": 1220,
+          "MAU": 0,
+          "design_id": 234
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 30000,
+          "name": "Alt_53",
+          "速度增量": 5.2677728395304815,
+          "服务能力": 3,
+          "响应时间": 0,
+          "总成本": 1620,
+          "MAU": 0,
+          "design_id": 235
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 100,
+          "name": "Alt_54",
+          "速度增量": 0.04859614773655889,
+          "服务能力": 3,
+          "响应时间": 0,
+          "总成本": 1022,
+          "MAU": 0,
+          "design_id": 236
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 300,
+          "name": "Alt_55",
+          "速度增量": 0.14344308265813022,
+          "服务能力": 3,
+          "响应时间": 0,
+          "总成本": 1026,
+          "MAU": 0,
+          "design_id": 237
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 1000,
+          "name": "Alt_56",
+          "速度增量": 0.45320299869213954,
+          "服务能力": 3,
+          "响应时间": 0,
+          "总成本": 1040,
+          "MAU": 0,
+          "design_id": 238
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 3000,
+          "name": "Alt_57",
+          "速度增量": 1.1920674178380033,
+          "服务能力": 3,
+          "响应时间": 0,
+          "总成本": 1080,
+          "MAU": 0,
+          "design_id": 239
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 10000,
+          "name": "Alt_58",
+          "速度增量": 2.883638003854475,
+          "服务能力": 3,
+          "响应时间": 0,
+          "总成本": 1220,
+          "MAU": 0,
+          "design_id": 240
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 30000,
+          "name": "Alt_59",
+          "速度增量": 5.2677728395304815,
+          "服务能力": 3,
+          "响应时间": 0,
+          "总成本": 1620,
+          "MAU": 0,
+          "design_id": 241
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 100,
+          "name": "Alt_60",
+          "速度增量": 0.04859614773655889,
+          "服务能力": 3,
+          "响应时间": 0,
+          "总成本": 1022,
+          "MAU": 0,
+          "design_id": 242
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 300,
+          "name": "Alt_61",
+          "速度增量": 0.14344308265813022,
+          "服务能力": 3,
+          "响应时间": 0,
+          "总成本": 1026,
+          "MAU": 0,
+          "design_id": 243
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 1000,
+          "name": "Alt_62",
+          "速度增量": 0.45320299869213954,
+          "服务能力": 3,
+          "响应时间": 0,
+          "总成本": 1040,
+          "MAU": 0,
+          "design_id": 244
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 3000,
+          "name": "Alt_63",
+          "速度增量": 1.1920674178380033,
+          "服务能力": 3,
+          "响应时间": 0,
+          "总成本": 1080,
+          "MAU": 0,
+          "design_id": 245
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 10000,
+          "name": "Alt_64",
+          "速度增量": 2.883638003854475,
+          "服务能力": 3,
+          "响应时间": 0,
+          "总成本": 1220,
+          "MAU": 0,
+          "design_id": 246
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 30000,
+          "name": "Alt_65",
+          "速度增量": 5.2677728395304815,
+          "服务能力": 3,
+          "响应时间": 0,
+          "总成本": 1620,
+          "MAU": 0,
+          "design_id": 247
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 100,
+          "name": "Alt_66",
+          "速度增量": 0.04859614773655889,
+          "服务能力": 3,
+          "响应时间": 0,
+          "总成本": 1022,
+          "MAU": 0,
+          "design_id": 248
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 300,
+          "name": "Alt_67",
+          "速度增量": 0.14344308265813022,
+          "服务能力": 3,
+          "响应时间": 0,
+          "总成本": 1026,
+          "MAU": 0,
+          "design_id": 249
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 1000,
+          "name": "Alt_68",
+          "速度增量": 0.45320299869213954,
+          "服务能力": 3,
+          "响应时间": 0,
+          "总成本": 1040,
+          "MAU": 0,
+          "design_id": 250
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 3000,
+          "name": "Alt_69",
+          "速度增量": 1.1920674178380033,
+          "服务能力": 3,
+          "响应时间": 0,
+          "总成本": 1080,
+          "MAU": 0,
+          "design_id": 251
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 10000,
+          "name": "Alt_70",
+          "速度增量": 2.883638003854475,
+          "服务能力": 3,
+          "响应时间": 0,
+          "总成本": 1220,
+          "MAU": 0,
+          "design_id": 252
+        },
+        {
+          "有效载荷 (kg)": 3000,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 30000,
+          "name": "Alt_71",
+          "速度增量": 5.2677728395304815,
+          "服务能力": 3,
+          "响应时间": 0,
+          "总成本": 1620,
+          "MAU": 0,
+          "design_id": 253
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 100,
+          "name": "Alt_72",
+          "速度增量": 0.02925397270831419,
+          "服务能力": 4,
+          "响应时间": 0,
+          "总成本": 1702,
+          "MAU": 0,
+          "design_id": 254
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 300,
+          "name": "Alt_73",
+          "速度增量": 0.08690287859014062,
+          "服务能力": 4,
+          "响应时间": 0,
+          "总成本": 1706,
+          "MAU": 0,
+          "design_id": 255
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 1000,
+          "name": "Alt_74",
+          "速度增量": 0.28021192862471533,
+          "服务能力": 4,
+          "响应时间": 0,
+          "总成本": 1720,
+          "MAU": 0,
+          "design_id": 256
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 3000,
+          "name": "Alt_75",
+          "速度增量": 0.7713509375344236,
+          "服务能力": 4,
+          "响应时间": 0,
+          "总成本": 1760,
+          "MAU": 0,
+          "design_id": 257
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 10000,
+          "name": "Alt_76",
+          "速度增量": 2.037852710846239,
+          "服务能力": 4,
+          "响应时间": 0,
+          "总成本": 1900,
+          "MAU": 0,
+          "design_id": 258
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 1,
+          "燃料水平 (kg)": 30000,
+          "name": "Alt_77",
+          "速度增量": 4.075705421692478,
+          "服务能力": 4,
+          "响应时间": 0,
+          "总成本": 2300,
+          "MAU": 0,
+          "design_id": 259
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 100,
+          "name": "Alt_78",
+          "速度增量": 0.02925397270831419,
+          "服务能力": 4,
+          "响应时间": 0,
+          "总成本": 1702,
+          "MAU": 0,
+          "design_id": 260
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 300,
+          "name": "Alt_79",
+          "速度增量": 0.08690287859014062,
+          "服务能力": 4,
+          "响应时间": 0,
+          "总成本": 1706,
+          "MAU": 0,
+          "design_id": 261
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 1000,
+          "name": "Alt_80",
+          "速度增量": 0.28021192862471533,
+          "服务能力": 4,
+          "响应时间": 0,
+          "总成本": 1720,
+          "MAU": 0,
+          "design_id": 262
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 3000,
+          "name": "Alt_81",
+          "速度增量": 0.7713509375344236,
+          "服务能力": 4,
+          "响应时间": 0,
+          "总成本": 1760,
+          "MAU": 0,
+          "design_id": 263
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 10000,
+          "name": "Alt_82",
+          "速度增量": 2.037852710846239,
+          "服务能力": 4,
+          "响应时间": 0,
+          "总成本": 1900,
+          "MAU": 0,
+          "design_id": 264
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 3,
+          "燃料水平 (kg)": 30000,
+          "name": "Alt_83",
+          "速度增量": 4.075705421692478,
+          "服务能力": 4,
+          "响应时间": 0,
+          "总成本": 2300,
+          "MAU": 0,
+          "design_id": 265
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 100,
+          "name": "Alt_84",
+          "速度增量": 0.02925397270831419,
+          "服务能力": 4,
+          "响应时间": 0,
+          "总成本": 1702,
+          "MAU": 0,
+          "design_id": 266
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 300,
+          "name": "Alt_85",
+          "速度增量": 0.08690287859014062,
+          "服务能力": 4,
+          "响应时间": 0,
+          "总成本": 1706,
+          "MAU": 0,
+          "design_id": 267
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 1000,
+          "name": "Alt_86",
+          "速度增量": 0.28021192862471533,
+          "服务能力": 4,
+          "响应时间": 0,
+          "总成本": 1720,
+          "MAU": 0,
+          "design_id": 268
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 3000,
+          "name": "Alt_87",
+          "速度增量": 0.7713509375344236,
+          "服务能力": 4,
+          "响应时间": 0,
+          "总成本": 1760,
+          "MAU": 0,
+          "design_id": 269
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 10000,
+          "name": "Alt_88",
+          "速度增量": 2.037852710846239,
+          "服务能力": 4,
+          "响应时间": 0,
+          "总成本": 1900,
+          "MAU": 0,
+          "design_id": 270
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 5,
+          "燃料水平 (kg)": 30000,
+          "name": "Alt_89",
+          "速度增量": 4.075705421692478,
+          "服务能力": 4,
+          "响应时间": 0,
+          "总成本": 2300,
+          "MAU": 0,
+          "design_id": 271
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 100,
+          "name": "Alt_90",
+          "速度增量": 0.02925397270831419,
+          "服务能力": 4,
+          "响应时间": 0,
+          "总成本": 1702,
+          "MAU": 0,
+          "design_id": 272
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 300,
+          "name": "Alt_91",
+          "速度增量": 0.08690287859014062,
+          "服务能力": 4,
+          "响应时间": 0,
+          "总成本": 1706,
+          "MAU": 0,
+          "design_id": 273
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 1000,
+          "name": "Alt_92",
+          "速度增量": 0.28021192862471533,
+          "服务能力": 4,
+          "响应时间": 0,
+          "总成本": 1720,
+          "MAU": 0,
+          "design_id": 274
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 3000,
+          "name": "Alt_93",
+          "速度增量": 0.7713509375344236,
+          "服务能力": 4,
+          "响应时间": 0,
+          "总成本": 1760,
+          "MAU": 0,
+          "design_id": 275
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 10000,
+          "name": "Alt_94",
+          "速度增量": 2.037852710846239,
+          "服务能力": 4,
+          "响应时间": 0,
+          "总成本": 1900,
+          "MAU": 0,
+          "design_id": 276
+        },
+        {
+          "有效载荷 (kg)": 5000,
+          "推进类型 (无量纲)": 7,
+          "燃料水平 (kg)": 30000,
+          "name": "Alt_95",
+          "速度增量": 4.075705421692478,
+          "服务能力": 4,
+          "响应时间": 0,
+          "总成本": 2300,
+          "MAU": 0,
+          "design_id": 277
+        }
+      ],
+      "ui_state": {
+        "regression_type": "polynomial",
+        "boxplot_metric": "速度增量",
+        "regression_independent_vars": [
+          "推进类型 (无量纲)",
+          "燃料水平 (kg)",
+          "有效载荷 (kg)"
+        ],
+        "regression_dependent_var": "速度增量",
+        "timestamp": "2026-01-10T16:36:18.036292"
+      }
+    },
+    "phase6": {
+      "sensitivity_analysis": null,
+      "constraints": null,
+      "feasible_designs": null,
+      "constraint_config": null,
+      "ui_state": {
+        "budget_limit": 5000,
+        "min_coverage": 35,
+        "max_power": 4000,
+        "resolution_target": 2,
+        "sensitivity_constraint": "cost_total",
+        "sensitivity_tolerance": [
+          -20,
+          20
+        ]
+      }
+    },
+    "phase7": {
+      "pareto_analysis": null,
+      "view_config": null,
+      "ui_state": null
+    },
+    "phase8": {
+      "mcdm_analysis": {
+        "method": "TOPSIS",
+        "weights": {},
+        "rankings": [],
+        "scores": {}
+      },
+      "mcdm_config": null,
+      "optimization_results": null,
+      "ui_state": null
+    }
+  },
+  "validation": {
+    "phase1": {
+      "required": [
+        "mission",
+        "design_variables",
+        "value_attributes"
+      ],
+      "status": "complete"
+    },
+    "phase2": {
+      "required": [
+        "n_squared_diagram"
+      ],
+      "status": "complete"
+    },
+    "phase3": {
+      "required": [
+        "design_alternatives"
+      ],
+      "status": "complete"
+    },
+    "phase4": {
+      "required": [
+        "user_models"
+      ],
+      "status": "complete"
+    },
+    "phase5": {
+      "required": [
+        "simulation_results"
+      ],
+      "status": "incomplete",
+      "missing": [
+        "simulation_results"
+      ]
+    },
+    "phase6": {
+      "required": [
+        "sensitivity_analysis"
+      ],
+      "status": "incomplete",
+      "missing": [
+        "sensitivity_analysis"
+      ]
+    },
+    "phase7": {
+      "required": [
+        "pareto_analysis"
+      ],
+      "status": "incomplete",
+      "missing": [
+        "pareto_analysis"
+      ]
+    },
+    "phase8": {
+      "required": [
+        "mcdm_analysis"
+      ],
+      "status": "complete"
+    }
+  }
+}

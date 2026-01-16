@@ -1,0 +1,15 @@
+# Web界面依赖
+dash>=2.14.0
+dash-bootstrap-components>=1.5.0
+plotly>=5.18.0
+pandas>=2.0.0
+numpy>=1.24.0
+gunicorn>=21.2.0
+pyDOE
+scikit-learn
+scipy
+
+# 数据库依赖
+sqlalchemy==2.0.25
+alembic==1.13.1
+pydantic==2.5.3

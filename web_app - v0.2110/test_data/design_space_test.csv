@@ -1,0 +1,9 @@
+design_id,有效载荷 (kg),推进类型 (无量纲),燃料水平 (kg),速度增量 (km/s),服务能力 (序数),响应时间 (分类变量),总成本 ($M)
+1,300,双组元推进,100,NaN,NaN,NaN,NaN
+2,1000,低温推进,300,NaN,NaN,NaN,NaN
+3,1000,电推进,1000,NaN,NaN,NaN,NaN
+4,3000,电推进,1000,NaN,NaN,NaN,NaN
+5,300,核推进,1000,NaN,NaN,NaN,NaN
+6,5000,核推进,30000,NaN,NaN,NaN,NaN
+7,3000,双组元推进,10000,NaN,NaN,NaN,NaN
+8,1000,低温推进,3000,NaN,NaN,NaN,NaN

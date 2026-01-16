@@ -1,0 +1,71 @@
+{
+  "project_name": "My New Project",
+  "export_time": "2025-12-28T10:23:05.844230",
+  "phases": {
+    "phase1": {
+      "mission": {
+        "title": "",
+        "description": "",
+        "key_objectives": [],
+        "value_proposition": ""
+      },
+      "design_variables": [],
+      "value_attributes": [],
+      "dvm_matrix": {
+        "design_vars": [],
+        "value_attrs": [],
+        "matrix": []
+      }
+    },
+    "phase2": {
+      "n_squared_diagram": {
+        "nodes": [],
+        "edges": []
+      },
+      "components": [],
+      "interfaces": []
+    },
+    "phase3": {
+      "design_alternatives": [],
+      "doe_config": {
+        "method": "full_factorial",
+        "levels": {}
+      },
+      "sampling_config": {},
+      "cartesian_engine": {}
+    },
+    "phase4": {
+      "user_models": [],
+      "cost_model_code": "",
+      "perf_models_dict": {},
+      "utility_functions_dict": {},
+      "weights_mau_code": ""
+    },
+    "phase5": {
+      "simulation_results": [],
+      "unified_results": []
+    },
+    "phase6": {
+      "sensitivity_analysis": {},
+      "constraints": [],
+      "feasible_designs": [],
+      "constraint_config": {}
+    },
+    "phase7": {
+      "pareto_analysis": {
+        "pareto_front": [],
+        "dominated_solutions": []
+      },
+      "view_config": {
+        "x": null,
+        "y": null,
+        "z": null
+      }
+    },
+    "phase8": {
+      "mcdm_analysis": {},
+      "mcdm_config": {},
+      "optimization_results": {}
+    }
+  }
+}

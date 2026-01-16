@@ -1,0 +1,279 @@
+/* 全局样式 - 系统工程分析平台 Web界面 */
+
+/* 主题颜色 */
+:root {
+    --primary-color: #0d6efd;
+    --secondary-color: #6c757d;
+    --success-color: #198754;
+    --info-color: #0dcaf0;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+    --light-bg: #f8f9fa;
+    --dark-text: #212529;
+}
+
+/* 全局字体 */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--dark-text);
+    background-color: #ffffff;
+}
+
+/* 卡片阴影效果 */
+.shadow-sm {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.shadow-sm:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+/* 导航链接 */
+.nav-link {
+    color: var(--dark-text);
+    transition: all 0.2s;
+    border-radius: 0.25rem;
+    margin-bottom: 0.25rem;
+}
+
+.nav-link:hover {
+    background-color: rgba(13, 110, 253, 0.1);
+    color: var(--primary-color);
+}
+
+.nav-link.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.nav-link i {
+    width: 20px;
+    text-align: center;
+}
+
+/* 按钮样式 */
+.btn {
+    transition: all 0.2s;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* 表单控件 */
+.form-control, .form-select {
+    border-radius: 0.25rem;
+    border: 1px solid #ced4da;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+/* 卡片头部 */
+.card-header {
+    background-color: var(--light-bg);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    font-weight: 600;
+}
+
+/* 进度条 */
+.progress {
+    height: 1.5rem;
+    border-radius: 0.25rem;
+}
+
+.progress-bar {
+    transition: width 0.6s ease;
+}
+
+/* 徽章 */
+.badge {
+    font-weight: 500;
+    padding: 0.35em 0.65em;
+}
+
+/* 表格样式 */
+.table {
+    font-size: 0.9rem;
+}
+
+.table thead th {
+    background-color: var(--light-bg);
+    font-weight: 600;
+    border-bottom: 2px solid #dee2e6;
+}
+
+/* Plotly图表容器 */
+.js-plotly-plot {
+    border-radius: 0.25rem;
+}
+
+/* 上传区域 */
+.upload-area {
+    border: 2px dashed #ced4da;
+    border-radius: 0.5rem;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.upload-area:hover {
+    border-color: var(--primary-color);
+    background-color: rgba(13, 110, 253, 0.05);
+}
+
+/* 列表组 */
+.list-group-item {
+    transition: background-color 0.2s;
+}
+
+.list-group-item:hover {
+    background-color: var(--light-bg);
+}
+
+/* 警告框 */
+.alert {
+    border-radius: 0.25rem;
+}
+
+.alert-heading {
+    font-weight: 600;
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* 页脚 */
+footer {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid #dee2e6;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .navbar {
+        font-size: 0.9rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .card-body {
+        padding: 1rem;
+    }
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+/* 决策报告样式 */
+.report-container {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.report-container h3 {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.report-container ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.report-container li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.report-container li:last-child {
+    border-bottom: none;
+}
+
+/* 加载状态 */
+.loading {
+    text-align: center;
+    padding: 3rem;
+}
+
+.loading::after {
+    content: "";
+    display: inline-block;
+    width: 3rem;
+    height: 3rem;
+    border: 0.3rem solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top-color: var(--primary-color);
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* 工具提示 */
+.tooltip-inner {
+    max-width: 300px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+}
+
+/* 输入组 */
+.input-group-text {
+    background-color: var(--light-bg);
+    border: 1px solid #ced4da;
+}
+
+/* 分割线 */
+hr {
+    opacity: 0.1;
+}
+
+/* 图标对齐 */
+.fa, .fas {
+    vertical-align: middle;
+}
