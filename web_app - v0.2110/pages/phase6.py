@@ -62,10 +62,40 @@ layout = dbc.Container([
         ], md=12)
     ]),
 
+    # ================= [新增] 6.3 边界探测与 Near-Miss 分析 =================
     dbc.Row([
         dbc.Col([
             dbc.Card([
-                dbc.CardHeader(html.H5("6.3 Kill分析", className="mb-0")),
+                dbc.CardHeader(html.H5("6.3 边界探测与 Near-Miss 分析 ", className="mb-0 text-white"),
+                               className="bg-success"),
+                dbc.CardBody([
+                    dbc.Alert([
+                        html.I(className="fas fa-search me-2"),
+                        "系统工程洞察：识别那些【只违反1个约束且幅度<5%】的“险些通过”设计。这些设计通常具有极高的优化潜力。"
+                    ], color="light", className="mb-3"),
+
+                    dbc.Row([
+                        dbc.Col([
+                            html.H6("权衡空间边界图 (Feasible vs Near-Miss)", className="text-center"),
+                            # 新增：边界散点图
+                            dcc.Graph(id="boundary-scatter-plot", figure={}, style={"height": "400px"})
+                        ], md=7),
+                        dbc.Col([
+                            html.H6("高潜力“挽救”建议", className="text-center"),
+                            # 新增：建议表容器
+                            html.Div(id="near-miss-table-container", style={"overflowY": "auto", "maxHeight": "400px"})
+                        ], md=5)
+                    ])
+                ])
+            ], className="shadow-sm mb-4")
+        ], md=12)
+    ]),
+    # ====================================================================
+
+    dbc.Row([
+        dbc.Col([
+            dbc.Card([
+                dbc.CardHeader(html.H5("6.4 Kill分析", className="mb-0")),
                 dbc.CardBody([
                     html.Div(id="kill-analysis-results")
                 ])
@@ -77,7 +107,7 @@ layout = dbc.Container([
     dbc.Row([
         dbc.Col([
             dbc.Card([
-                dbc.CardHeader(html.H5("6.4 可行 vs 不可行设计对比", className="mb-0")),
+                dbc.CardHeader(html.H5("6.5 可行 vs 不可行设计对比", className="mb-0")),
                 dbc.CardBody([
                     dbc.Alert([
                         html.I(className="fas fa-info-circle me-2"),
@@ -99,7 +129,7 @@ layout = dbc.Container([
     dbc.Row([
         dbc.Col([
             dbc.Card([
-                dbc.CardHeader(html.H5("6.5 约束敏感性分析", className="mb-0")),
+                dbc.CardHeader(html.H5("6.6 约束敏感性分析", className="mb-0")),
                 dbc.CardBody([
                     dbc.Alert([
                         html.I(className="fas fa-info-circle me-2"),
@@ -144,7 +174,7 @@ layout = dbc.Container([
     dbc.Row([
         dbc.Col([
             dbc.Card([
-                dbc.CardHeader(html.H5("6.6 交互式约束调整 (P2-8)", className="mb-0")),
+                dbc.CardHeader(html.H5("6.7 交互式约束调整 (P2-8)", className="mb-0")),
                 dbc.CardBody([
                     dbc.Alert([
                         html.I(className="fas fa-info-circle me-2"),
@@ -267,97 +297,6 @@ layout = dbc.Container([
     ])
 ], fluid=True)
 
-@callback(
-    [Output('filter-status', 'children', allow_duplicate=True),
-     Output('kill-analysis-results', 'children', allow_duplicate=True),
-     Output('phase6-feasible-store', 'data', allow_duplicate=True)],
-    [Input('btn-filter-designs', 'n_clicks')],
-    prevent_initial_call=True
-)
-def apply_constraints(n_clicks):
-    """应用约束 - 集成ConstraintEngine"""
-    if not n_clicks:
-        return no_update, no_update, no_update
-
-    try:
-        import pandas as pd
-
-        # DataFrame辅助函数检查数据有效性
-        def _has_valid_data(data):
-            """检查数据是否有效（支持DataFrame和list）"""
-            if data is None:
-                return False
-            if isinstance(data, pd.DataFrame):
-                return not data.empty
-            if isinstance(data, list):
-                return len(data) > 0
-            return False
-
-        # 1. 从StateManager加载Phase 5数据
-        state = get_state_manager()
-        unified = state.load('phase5', 'unified_results')
-
-        if not _has_valid_data(unified):  # DataFrame使用显式类型检查
-            return dbc.Alert("请先在Phase 5运行批量计算！", color="warning"), no_update, None
-
-        # 2. 创建约束引擎
-        engine = ConstraintEngine()
-
-        # 添加约束
-        engine.add_constraint(Constraint('budget', 'cost_total <= 5000', 'hard'))
-        engine.add_constraint(Constraint('min_coverage', 'perf_coverage >= 35', 'hard'))
-        engine.add_constraint(Constraint('max_power', 'transmit_power <= 4000', 'hard'))
-        engine.add_constraint(Constraint('preferred_resolution', 'perf_resolution <= 2', 'soft'))
-
-        # 3. 应用约束
-        unified_filtered = engine.apply_constraints(unified)
-        n_feasible = unified_filtered['feasible'].sum()
-        n_total = len(unified_filtered)
-        feasibility_rate = n_feasible / n_total * 100
-
-        # 4. 保存到StateManager
-        state.save('phase6', 'constraints', [c.to_dict() for c in engine.constraints])
-        state.save('phase6', 'feasible_designs', unified_filtered[unified_filtered['feasible']])
-
-        # 5. 状态显示
-        if feasibility_rate >= 50:
-            color = "success"
-        elif feasibility_rate >= 20:
-            color = "warning"
-        else:
-            color = "danger"
-
-        status = dbc.Alert([
-            html.H5([html.I(className="fas fa-check-circle me-2"), "过滤完成！"], className="alert-heading"),
-            html.Hr(),
-            html.H4(f"可行方案: {n_feasible} / {n_total}", className="mb-2"),
-            html.P([
-                dbc.Progress(value=feasibility_rate, label=f"{feasibility_rate:.1f}%",
-                           color="success" if feasibility_rate >= 50 else "warning", className="mb-3")
-            ]),
-            html.P([
-                html.Strong("约束数量: "), f"{len(engine.constraints)} (3硬+1软)", html.Br(),
-                html.Strong("过滤率: "), f"{100-feasibility_rate:.1f}%"
-            ])
-        ], color=color)
-
-        # 6. Kill分析
-        analysis = engine.analyze_constraints()
-
-        kill_display = dbc.Alert([
-            html.H5("Kill分析 - 约束瓶颈识别", className="alert-heading"),
-            html.Hr(),
-            html.P("识别哪些约束导致了最多的设计被淘汰："),
-            dbc.Table.from_dataframe(analysis, striped=True, bordered=True, hover=True)
-        ], color="info")
-
-        feasible_json = unified_filtered[unified_filtered['feasible']].to_dict('records')
-
-        return status, kill_display, feasible_json
-
-    except Exception as e:
-        error = dbc.Alert(f"过滤失败: {str(e)}", color="danger")
-        return error, no_update, None
 
 @callback(
     Output('feasibility-comparison-boxplot', 'figure'),
@@ -840,105 +779,216 @@ def update_realtime_feasibility(budget_limit, min_coverage, max_power, resolutio
 
     except Exception as e:
         return "错误", 0, "danger", f"计算失败: {str(e)}"
-    
 
-# 回调2: 应用调整后的约束并重新过滤
+
+# ================= [修复版V2] 核心过滤与分析逻辑 (修复JSON序列化报错) =================
+
 @callback(
-    [Output('filter-status', 'children', allow_duplicate=True),
-     Output('kill-analysis-results', 'children', allow_duplicate=True),
-     Output('phase6-feasible-store', 'data', allow_duplicate=True)],
-    [Input('btn-apply-adjusted-constraints', 'n_clicks'),
-     Input('btn-filter-designs', 'n_clicks')], # 合并两个按钮的逻辑
+    [Output('filter-status', 'children'),
+     Output('kill-analysis-results', 'children'),
+     Output('phase6-feasible-store', 'data'),
+     Output('boundary-scatter-plot', 'figure'),
+     Output('near-miss-table-container', 'children')],
+    [Input('btn-filter-designs', 'n_clicks'),
+     Input('btn-apply-adjusted-constraints', 'n_clicks')],
     [State('slider-budget-limit', 'value'),
      State('slider-min-coverage', 'value'),
      State('slider-max-power', 'value'),
      State('slider-resolution-target', 'value')],
     prevent_initial_call=True
 )
-def apply_adjusted_constraints(n_click_adjust, n_click_filter, budget_limit, min_coverage, max_power, resolution_target):
+def run_advanced_filtering(n_click_filter, n_click_adjust, budget, coverage, power, resolution):
     """
-    应用约束过滤逻辑
-    功能：
-    1. 计算可行性过滤。
-    2. 生成 Kill Analysis。
-    3. 立即持久化核心数据 (Constraints, Config, Feasible Designs)。
+    统一执行可行性过滤、Kill分析以及边界探测分析
+    (修复 DataFrame JSON 序列化错误 + 适配中文列名)
     """
-    from dash import ctx
-    if not (n_click_adjust or n_click_filter):
-        return no_update, no_update, no_update
+    from dash import ctx, no_update
+    import plotly.express as px
+    import pandas as pd
+
+    if not ctx.triggered:
+        return no_update, no_update, no_update, no_update, no_update
 
     try:
-        import pandas as pd
-
+        # 1. 加载数据
         state = get_state_manager()
-        # 1. 加载 Phase 5 输入数据
-        unified = state.load('phase5', 'unified_results')
+        df_raw = state.load('phase5', 'unified_results')
 
-        def _has_valid_data(data):
-            if data is None: return False
-            if isinstance(data, pd.DataFrame): return not data.empty
-            if isinstance(data, list): return len(data) > 0
-            return False
+        if df_raw is None:
+            return dbc.Alert("数据缺失：请先在Phase 5完成计算！", color="danger"), no_update, None, {}, None
 
-        if not _has_valid_data(unified):
-            return dbc.Alert("请先在Phase 5运行批量计算！", color="warning"), no_update, None
+        # 转换 DataFrame
+        if isinstance(df_raw, list):
+            df = pd.DataFrame(df_raw)
+        else:
+            # 兼容处理：如果是字典格式且包含data
+            df = pd.DataFrame(df_raw) if hasattr(df_raw, 'columns') else pd.DataFrame(df_raw.get('data', []))
 
-        # 2. 创建约束引擎并应用
-        engine = ConstraintEngine()
-        engine.add_constraint(Constraint('budget', f'cost_total <= {budget_limit}', 'hard'))
-        engine.add_constraint(Constraint('min_coverage', f'perf_coverage >= {min_coverage}', 'hard'))
-        engine.add_constraint(Constraint('max_power', f'transmit_power <= {max_power}', 'hard'))
-        engine.add_constraint(Constraint('preferred_resolution', f'perf_resolution <= {resolution_target}', 'soft'))
+        if df.empty:
+            return dbc.Alert("Phase 5 结果为空，无法进行分析。", color="danger"), no_update, None, {}, None
 
-        unified_filtered = engine.apply_constraints(unified)
-        n_feasible = unified_filtered['feasible'].sum()
-        n_total = len(unified_filtered)
-        feasibility_rate = n_feasible / n_total * 100
+        # --- 智能列名映射 (支持中文) ---
+        def find_col(candidates):
+            for c in candidates:
+                match = next((col for col in df.columns if col.lower() == c.lower()), None)
+                if match: return match
+            return None
 
-        # 3. [Core Data] 立即持久化关键结果
-        # 保存具体约束定义
-        state.save('phase6', 'constraints', [c.to_dict() for c in engine.constraints])
-        # 保存可行设计结果集
-        state.save('phase6', 'feasible_designs', unified_filtered[unified_filtered['feasible']])
-        # 保存生效的配置参数 (用于下次加载恢复基准)
-        constraint_config = {
-            'budget_limit': budget_limit,
-            'min_coverage': min_coverage,
-            'max_power': max_power,
-            'resolution_target': resolution_target
-        }
-        state.save('phase6', 'constraint_config', constraint_config)
+        col_cost = find_col(['总成本', 'cost_total', 'cost', 'total_cost'])
+        col_perf = find_col(['服务能力', 'perf_coverage', 'coverage', 'capability'])
+        col_const3 = find_col(['响应时间', 'transmit_power', 'power', 'response_time'])
+        col_mau = find_col(['MAU', 'mau', 'utility'])
 
-        # 4. 生成分析报告
-        analysis = engine.analyze_constraints()
-        kill_display = dbc.Alert([
-            html.H5("Kill分析 - 约束瓶颈识别", className="alert-heading"),
+        # 检查关键列
+        missing = []
+        if not col_cost: missing.append("成本(总成本)")
+        if not col_perf: missing.append("性能(服务能力/覆盖)")
+
+        if missing:
+            return dbc.Alert(f"❌ 列名匹配失败: 未找到 {', '.join(missing)}。可用列: {', '.join(df.columns)}",
+                             color="danger"), no_update, None, {}, None
+
+        # 虚拟列处理
+        use_dummy_const3 = False
+        if not col_const3:
+            col_const3 = '_dummy_power'
+            df[col_const3] = 0
+            use_dummy_const3 = True
+
+        # 3. 执行过滤
+        final_budget = budget
+        final_coverage = coverage
+        final_power = power
+
+        results = []
+        near_miss_threshold = 0.05
+
+        for idx, row in df.iterrows():
+            violations = []
+            is_feasible = True
+
+            val_cost = row[col_cost]
+            val_perf = row[col_perf]
+            val_const3 = row[col_const3]
+            val_mau = row.get(col_mau, 0)
+
+            # --- 约束判定 ---
+            if val_cost > final_budget:
+                is_feasible = False
+                margin = (val_cost - final_budget) / final_budget
+                violations.append({'name': col_cost, 'margin': margin, 'val': val_cost, 'limit': final_budget})
+
+            if val_perf < final_coverage:
+                is_feasible = False
+                margin = (final_coverage - val_perf) / final_coverage if final_coverage != 0 else 1.0
+                violations.append({'name': col_perf, 'margin': margin, 'val': val_perf, 'limit': final_coverage})
+
+            if not use_dummy_const3:
+                if val_const3 > final_power:
+                    is_feasible = False
+                    margin = (val_const3 - final_power) / final_power if final_power != 0 else 1.0
+                    violations.append({'name': col_const3, 'margin': margin, 'val': val_const3, 'limit': final_power})
+
+            # 状态判定
+            status = 'Feasible'
+            if not is_feasible:
+                if len(violations) == 1 and violations[0]['margin'] <= near_miss_threshold:
+                    status = 'Near-Miss'
+                else:
+                    status = 'Infeasible'
+
+            res_entry = row.to_dict()
+            res_entry['status'] = status
+            res_entry['feasible'] = is_feasible
+            res_entry['first_violation'] = violations[0]['name'] if violations else None
+            res_entry['violation_detail'] = violations[0] if violations else None
+
+            # 标准化绘图数据
+            res_entry['_std_x'] = val_cost
+            res_entry['_std_y'] = val_perf
+            res_entry['_std_mau'] = val_mau
+
+            results.append(res_entry)
+
+        res_df = pd.DataFrame(results)
+
+        # 4. 生成 Outputs
+        n_feasible = sum(res_df['feasible'])
+        n_total = len(res_df)
+        rate = n_feasible / n_total * 100 if n_total > 0 else 0
+
+        # 状态提示
+        mapped_info = f"映射: 预算[{col_cost}], 覆盖[{col_perf}]"
+        if not use_dummy_const3:
+            mapped_info += f", 约束3[{col_const3}]"
+
+        status_display = dbc.Alert([
+            html.H5(f"分析完成: {n_feasible} 可行 / {n_total} 总数 ({rate:.1f}%)", className="alert-heading"),
             html.Hr(),
-            html.P("基于当前约束，识别导致最多设计被淘汰的条件："),
-            dbc.Table.from_dataframe(analysis, striped=True, bordered=True, hover=True)
-        ], color="info")
+            html.P(mapped_info, className="mb-0 small")
+        ], color="success" if rate > 0 else "warning")
 
-        # 5. 生成状态提示
-        status = dbc.Alert([
-            html.H5([html.I(className="fas fa-check-circle me-2"), "过滤完成 & 已保存"], className="alert-heading"),
-            html.Hr(),
-            html.P([
-                dbc.Progress(value=feasibility_rate, label=f"{feasibility_rate:.1f}%",
-                           color="success" if feasibility_rate >= 50 else "warning", className="mb-2"),
-                f"可行方案: {n_feasible} / {n_total} (过滤率: {100-feasibility_rate:.1f}%)"
-            ])
-        ], color="success")
+        # Kill Table
+        if 'first_violation' in res_df.columns:
+            kill_counts = res_df[~res_df['feasible']]['first_violation'].value_counts().reset_index()
+            kill_counts.columns = ['瓶颈约束', '淘汰数量']
+            kill_table = dbc.Table.from_dataframe(kill_counts, striped=True, bordered=True, size="sm")
+        else:
+            kill_table = html.P("无淘汰数据")
 
-        feasible_json = unified_filtered[unified_filtered['feasible']].to_dict('records')
+        # --- [关键修复] 保存数据时转换为字典列表 ---
+        # 过滤掉辅助列，保留干净的数据
+        feasible_data = res_df[res_df['feasible']].drop(
+            columns=['status', 'first_violation', 'violation_detail', '_std_x', '_std_y', '_std_mau', '_dummy_power'],
+            errors='ignore'
+        )
 
-        return status, kill_display, feasible_json
+        # *** FIX: .to_dict('records') ***
+        state.save('phase6', 'feasible_designs', feasible_data.to_dict('records'))
+
+        # 散点图
+        fig_scatter = px.scatter(
+            res_df,
+            x='_std_x',
+            y='_std_y',
+            color='status',
+            color_discrete_map={'Feasible': '#2ecc71', 'Near-Miss': '#f1c40f', 'Infeasible': '#e74c3c'},
+            title=f"设计空间: {col_cost} vs {col_perf}",
+            labels={'_std_x': col_cost, '_std_y': col_perf},
+            hover_data=['design_id', '_std_mau']
+        )
+        fig_scatter.add_vline(x=final_budget, line_dash="dash", line_color="gray")
+        fig_scatter.add_hline(y=final_coverage, line_dash="dash", line_color="gray")
+        fig_scatter.update_layout(height=400, margin=dict(l=20, r=20, t=40, b=20), legend=dict(orientation="h", y=1.1))
+
+        # Near-Miss Table
+        near_miss_df = res_df[res_df['status'] == 'Near-Miss'].copy()
+        if not near_miss_df.empty:
+            rows = []
+            for _, row in near_miss_df.iterrows():
+                v = row['violation_detail']
+                rows.append({
+                    'ID': str(row.get('design_id', 'N/A')),
+                    '违规项': v['name'],
+                    '当前值': f"{v['val']:.1f}",
+                    '阈值': f"{v['limit']}",
+                    '建议放宽': f"{v['margin'] * 100:.1f}%",
+                    '潜在MAU': f"{row.get('_std_mau', 0):.3f}"
+                })
+            nm_table_df = pd.DataFrame(rows).sort_values('潜在MAU', ascending=False).head(10)
+            nm_table = dbc.Table.from_dataframe(nm_table_df, striped=True, bordered=True, size="sm",
+                                                style={'fontSize': '11px'})
+        else:
+            nm_table = dbc.Alert("当前约束下未发现“险些通过”的设计", color="secondary",
+                                 style={"padding": "10px", "fontSize": "12px"})
+
+        # 返回 JSON 格式的可行数据给前端 Store
+        return status_display, kill_table, feasible_data.to_dict('records'), fig_scatter, nm_table
 
     except Exception as e:
         import traceback
         traceback.print_exc()
-        error = dbc.Alert(f"应用约束失败: {str(e)}", color="danger")
-        return error, no_update, None
-
+        return dbc.Alert(f"运行出错: {str(e)}", color="danger"), no_update, None, {}, None
 # ========== P0-1: 全局刷选响应 (跨页面同步) ==========
 
 @callback(
@@ -1045,11 +1095,11 @@ def auto_save_phase6_ui(budget, coverage, power, resolution, sens_constraint, se
     """
     from dash import ctx
     if not ctx.triggered: return no_update
-    
+
     state = get_state_manager()
-    
+
     current_ui = state.load('phase6', 'ui_state') or {}
-    
+
     # 更新所有 UI 控件状态
     current_ui.update({
         'budget_limit': budget,
@@ -1059,7 +1109,7 @@ def auto_save_phase6_ui(budget, coverage, power, resolution, sens_constraint, se
         'sensitivity_constraint': sens_constraint,
         'sensitivity_tolerance': sens_tolerance
     })
-    
+
     state.save('phase6', 'ui_state', current_ui)
     return no_update # 静默保存
 
@@ -1079,9 +1129,9 @@ def auto_save_phase6_ui(budget, coverage, power, resolution, sens_constraint, se
 def save_phase6_data(n_clicks, feasible_designs, budget, coverage, power, resolution, sens_const, sens_tol):
     """手动保存所有 Phase 6 数据"""
     if not n_clicks: return no_update
-    
+
     state = get_state_manager()
-    
+
     # 1. 保存 Store 数据 (如果存在)
     if feasible_designs:
         state.save('phase6', 'feasible_designs', feasible_designs)
@@ -1099,14 +1149,14 @@ def save_phase6_data(n_clicks, feasible_designs, budget, coverage, power, resolu
         'min_coverage': coverage,
         'max_power': power,
         'resolution_target': resolution,
-        'sensitivity_constraint': sens_const, 
+        'sensitivity_constraint': sens_const,
         'sensitivity_tolerance': sens_tol
     }
     state.save('phase6', 'ui_state', ui_state)
 
     count = len(feasible_designs) if feasible_designs else 0
     return dbc.Alert([
-        html.I(className="fas fa-check-circle me-2"), 
+        html.I(className="fas fa-check-circle me-2"),
         f"Phase 6 数据已保存: {count} 个方案 + 当前约束配置"
     ], color="success")
 
@@ -1120,8 +1170,8 @@ def save_phase6_data(n_clicks, feasible_designs, budget, coverage, power, resolu
      Output('slider-tolerance-range', 'value'),
      Output('phase6-save-status', 'children', allow_duplicate=True)],
     [Input('btn-load-phase6', 'n_clicks'),
-     Input('phase6-autoloader', 'n_intervals')], 
-    prevent_initial_call=True 
+     Input('phase6-autoloader', 'n_intervals')],
+    prevent_initial_call=True
 )
 def load_phase6_data(n_clicks, n_intervals):
     """
@@ -1132,18 +1182,18 @@ def load_phase6_data(n_clicks, n_intervals):
     import pandas as pd
 
     triggered_id = ctx.triggered_id
-    
+
     # 如果没有任何触发（虽然 prevent_initial_call=True 挡住了大部分，但为了稳健性）
     if not triggered_id:
          return tuple([no_update] * 8)
 
     try:
         state = get_state_manager()
-        
+
         # 1. 加载 Core Data
         feasible_designs = state.load('phase6', 'feasible_designs')
         constraint_config = state.load('phase6', 'constraint_config') or {}
-        
+
         # 2. 加载 UI State
         ui_state = state.load('phase6', 'ui_state') or {}
 
@@ -1152,14 +1202,14 @@ def load_phase6_data(n_clicks, n_intervals):
         r_coverage = ui_state.get('min_coverage') or constraint_config.get('min_coverage', 35)
         r_power = ui_state.get('max_power') or constraint_config.get('max_power', 4000)
         r_res = ui_state.get('resolution_target') or constraint_config.get('resolution_target', 2.0)
-        
+
         r_sens_const = ui_state.get('sensitivity_constraint', 'cost_total')
         r_sens_tol = ui_state.get('sensitivity_tolerance', [-20, 20])
 
         # 4. 处理数据格式
         final_data = no_update
         has_data = False
-        
+
         if feasible_designs:
             if isinstance(feasible_designs, dict) and 'data' in feasible_designs:
                 final_data = feasible_designs['data']
@@ -1200,7 +1250,7 @@ def load_phase6_data(n_clicks, n_intervals):
         traceback.print_exc()
         error = dbc.Alert(f"加载失败: {str(e)}", color="danger")
         return tuple([no_update] * 7) + (error,)
-    
+
 
 
 
