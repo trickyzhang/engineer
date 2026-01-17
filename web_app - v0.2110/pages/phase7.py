@@ -8,10 +8,42 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import sys
 import os
+import numpy as np
+import pandas as pd
+import plotly.express as px
 
 # 添加项目根目录到路径
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils.state_manager import get_state_manager
+
+
+# 这是根据课件 7.3.5 节实现的"帕累托追踪"，用于识别稳健解
+def identify_pareto_indices(data, objectives, directions):
+    """
+    辅助函数：返回Pareto最优行的索引
+    data: DataFrame
+    objectives: ['cost', 'mau']
+    directions: ['min', 'max']
+    """
+    subset = data[objectives].values.copy()
+    # 统一转化为最小化问题处理
+    for i, direction in enumerate(directions):
+        if direction == 'max':
+            subset[:, i] = -subset[:, i]
+
+    is_efficient = np.ones(subset.shape[0], dtype=bool)
+    for i, c in enumerate(subset):
+        if is_efficient[i]:
+            # 查找支配点i的所有点：在所有目标上都更优或相等，且至少有一个更优
+            is_efficient[is_efficient] = np.any(subset[is_efficient] < c, axis=1) | np.any(subset[is_efficient] == c,
+                                                                                           axis=1)
+            is_efficient[i] = True  # 保持自己
+
+            # 再次检查是否有严格支配者
+            dominators = np.all(subset <= c, axis=1) & np.any(subset < c, axis=1)
+            if np.any(dominators):
+                is_efficient[i] = False
+    return is_efficient
 
 layout = dbc.Container([
     # 仅当Phase 7页面渲染时触发，替代全局URL触发
@@ -337,6 +369,87 @@ layout = dbc.Container([
             ], className="shadow-sm mb-4")
         ], md=12)
     ]),
+
+# ===== 新增功能：系统工程深度分析模块 =====
+    html.Hr(className="my-4"),
+
+    html.H4([
+        html.I(className="fas fa-microscope me-2 text-primary"),
+        "系统工程深度分析 (System Insights)"
+    ], className="mb-3"),
+
+    dbc.Row([
+        # 左侧：Pareto Trace (基于课件 7.3)
+        dbc.Col([
+            dbc.Card([
+                dbc.CardHeader([
+                    html.H5("7.9 方案稳健性分析 (Pareto Trace)", className="mb-0"),
+                ], className="bg-light"),
+                dbc.CardBody([
+                    dbc.Alert([
+                        html.I(className="fas fa-info-circle me-2"),
+                        "Pareto Trace: 模拟需求/模型的不确定性，统计设计方案在多轮模拟中保持Pareto最优的频率。频率越高，设计越稳健。"
+                    ], color="info", className="mb-3", style={"fontSize": "0.9rem"}),
+
+                    dbc.Row([
+                        dbc.Col([
+                            dbc.Label("模拟扰动次数 (Epochs)"),
+                            dcc.Slider(id='trace-sim-count', min=10, max=50, step=10, value=20,
+                                       marks={10: '10次', 50: '50次'}),
+                        ], md=12, className="mb-3"),
+
+                        dbc.Col([
+                            dbc.Label("不确定性水平 (Noise Level)"),
+                            dcc.Slider(id='trace-noise', min=0.05, max=0.3, step=0.05, value=0.1,
+                                       marks={0.05: '5%', 0.3: '30%'}),
+                        ], md=12, className="mb-3")
+                    ]),
+
+                    dbc.Button([
+                        html.I(className="fas fa-play-circle me-2"),
+                        "运行帕累托追踪分析"
+                    ], id="btn-run-trace", color="success", outline=True, className="w-100 mb-3"),
+
+                    dcc.Graph(id="trace-plot", figure={}, config={'displayModeBar': False}, style={'height': '300px'}),
+                    html.Div(id="trace-insight", className="mt-2")
+                ])
+            ], className="h-100 shadow-sm")
+        ], md=6),
+
+        # 右侧：敏感性分析 (基于课件 7.1)
+        dbc.Col([
+            dbc.Card([
+                dbc.CardHeader([
+                    html.H5("7.10 设计变量敏感性分析 (Sensitivity)", className="mb-0"),
+                ], className="bg-light"),
+                dbc.CardBody([
+                    dbc.Alert([
+                        html.I(className="fas fa-search-dollar me-2"),
+                        "Sensitivity: 分析哪个设计变量（X）是影响系统效用（MAU）或成本的关键驱动因子。"
+                    ], color="secondary", className="mb-3", style={"fontSize": "0.9rem"}),
+
+                    dbc.Row([
+                        dbc.Col([
+                            dbc.Label("选择设计变量 (X)"),
+                            dbc.Select(id="sens-x-axis", placeholder="系统会自动加载数值型变量...")
+                        ], md=6),
+                        dbc.Col([
+                            dbc.Label("选择目标 (Y)"),
+                            dbc.Select(id="sens-y-axis", value="MAU", options=[
+                                {"label": "综合效用 (MAU)", "value": "MAU"},
+                                {"label": "总成本 (Cost)", "value": "cost_total"},
+                                {"label": "覆盖范围 (Coverage)", "value": "perf_coverage"}
+                            ])
+                        ], md=6)
+                    ], className="mb-3"),
+
+                    dcc.Graph(id="sensitivity-plot", figure={}, config={'displayModeBar': False},
+                              style={'height': '300px'}),
+                    dbc.Fade(id="sensitivity-insight", is_in=True, className="mt-2")
+                ])
+            ], className="h-100 shadow-sm")
+        ], md=6),
+    ], className="mb-5"),
 
     # ===== 数据管理 =====
     dbc.Row([
@@ -1092,3 +1205,184 @@ def load_phase7_data(n_clicks, n_intervals):
         traceback.print_exc()
         error = dbc.Alert(f"加载异常: {str(e)}", color="danger")
         return tuple([no_update] * 19) + (error,)
+
+
+# -----------------------------------------------------------------------------
+# 增强版回调 1：敏感性分析 (增加数据类型自动修复)
+# -----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+# 增强版回调 1：敏感性分析 (含 statsmodels 缺失自动容错处理)
+# -----------------------------------------------------------------------------
+@callback(
+    [Output('sens-x-axis', 'options'),
+     Output('sens-x-axis', 'value'),
+     Output('sensitivity-plot', 'figure', allow_duplicate=True),
+     Output('sensitivity-insight', 'children')],
+    [Input('phase6-feasible-store', 'data'),
+     Input('sens-x-axis', 'value'),
+     Input('sens-y-axis', 'value')],
+    prevent_initial_call=True
+)
+def update_sensitivity(data, x_col, y_col):
+    import pandas as pd
+    import plotly.express as px
+
+    # 1. 基础数据检查
+    if not data:
+        return [], None, {}, dbc.Alert("数据未加载", color="warning")
+
+    try:
+        df = pd.DataFrame(data)
+
+        # 强制类型转换 (防止 Object 类型导致下拉框为空)
+        for col in df.columns:
+            try:
+                df[col] = pd.to_numeric(df[col], errors='ignore')
+            except:
+                pass
+
+        # 2. 【优先】生成下拉框选项 (确保下拉框有值)
+        numeric_cols = df.select_dtypes(include=['number']).columns
+        exclude = ['design_id', 'feasible', 'kills', 'y_col']
+        options = [{'label': c, 'value': c} for c in numeric_cols if c not in exclude]
+
+        if not options:
+            return [], None, {}, dbc.Alert("未找到数值型变量", color="danger")
+
+        # 设置默认值
+        if not x_col and options:
+            x_col = options[0]['value']
+
+        # 3. 检查是否有有效的 X, Y
+        if not x_col or not y_col:
+            # 返回选项，但图表为空
+            return options, x_col, {}, dbc.Alert("请选择变量", color="info")
+
+        # 4. 【容错绘图】尝试画趋势线，失败则回退
+        fig = None
+        trendline_status = ""
+
+        try:
+            # 尝试画带 OLS 趋势线的图 (需要 statsmodels)
+            fig = px.scatter(df, x=x_col, y=y_col, trendline="ols",
+                             title=f"敏感性: {x_col} vs {y_col}", template="plotly_white")
+            trendline_status = "(含趋势线)"
+        except Exception as e:
+            # 如果报错 (如 No module named 'statsmodels')，降级为普通散点图
+            print(f"趋势线绘制失败 (可能是缺少 statsmodels): {e}")
+            fig = px.scatter(df, x=x_col, y=y_col,
+                             title=f"敏感性: {x_col} vs {y_col}", template="plotly_white")
+            trendline_status = "(无趋势线 - 缺少statsmodels库)"
+
+        # 5. 生成统计见解
+        correlation = df[x_col].corr(df[y_col])
+        if pd.isna(correlation):
+            insight_text = "数据点过少，无法计算相关性。"
+        else:
+            strength = "强" if abs(correlation) > 0.7 else "中等" if abs(correlation) > 0.3 else "弱"
+            direction = "正相关" if correlation > 0 else "负相关"
+
+            # 如果是降级模式，在提示中加一句
+            extra_msg = ""
+            if "缺少" in trendline_status:
+                extra_msg = html.Small("提示: 运行 'pip install statsmodels' 可启用趋势线。",
+                                       className="text-muted d-block mt-1")
+
+            insight_text = [
+                html.Strong("分析结论："),
+                f"变量 '{x_col}' 与 '{y_col}' 呈现 {strength}{direction} (R={correlation:.2f})。",
+                html.Br(),
+                "斜率越陡，说明该设计变量是关键驱动因子。",
+                extra_msg
+            ]
+
+        return options, x_col, fig, insight_text
+
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return [], None, {}, dbc.Alert(f"分析出错: {str(e)}", color="danger")
+
+
+# -----------------------------------------------------------------------------
+# 增强版回调 2：Pareto Trace (增加列检查和错误提示)
+# -----------------------------------------------------------------------------
+@callback(
+    [Output('trace-plot', 'figure'),
+     Output('trace-insight', 'children')],
+    [Input('btn-run-trace', 'n_clicks')],
+    [State('phase6-feasible-store', 'data'),
+     State('trace-sim-count', 'value'),
+     State('trace-noise', 'value')]
+)
+def run_pareto_trace(n_clicks, data, sim_count, noise_level):
+    if not n_clicks:
+        return {}, ""  # 初始状态不显示错误
+
+    if not data:
+        return {}, dbc.Alert("无法运行：数据为空。请先加载数据。", color="danger")
+
+    import pandas as pd
+    import plotly.express as px
+    import numpy as np
+
+    try:
+        df = pd.DataFrame(data)
+
+        # 【关键修复】同样进行强制类型转换
+        for col in ['MAU', 'cost_total']:
+            if col in df.columns:
+                df[col] = pd.to_numeric(df[col], errors='coerce')
+
+        # 检查核心列是否存在
+        missing_cols = [c for c in ['MAU', 'cost_total'] if c not in df.columns]
+        if missing_cols:
+            return {}, dbc.Alert(f"数据缺失核心指标: {missing_cols}。Pareto 分析需要 cost_total 和 MAU。", color="danger")
+
+        # 检查是否包含有效数值
+        if df['MAU'].isna().all() or df['cost_total'].isna().all():
+            return {}, dbc.Alert("MAU 或 cost_total 列不包含有效数值，无法计算。", color="danger")
+
+        # 初始化计数器
+        df['pareto_trace_count'] = 0
+
+        # Monte Carlo 模拟
+        for _ in range(sim_count):
+            temp_df = df.copy()
+            # 施加噪声 (模拟不确定性)
+            noise = np.random.normal(0, noise_level, len(df))
+            temp_df['MAU_simulated'] = temp_df['MAU'] * (1 + noise)
+
+            # 识别 Pareto (Cost min, MAU max)
+            is_opt = identify_pareto_indices(temp_df, ['cost_total', 'MAU_simulated'], ['min', 'max'])
+            df.loc[is_opt, 'pareto_trace_count'] += 1
+
+        # 计算得分
+        df['robustness_score'] = df['pareto_trace_count'] / sim_count
+
+        # 绘图
+        fig = px.scatter(df, x='cost_total', y='MAU',
+                         color='robustness_score', size='robustness_score',
+                         color_continuous_scale='Viridis',
+                         title=f"Pareto Trace 稳健性 (模拟 {sim_count} 次)",
+                         labels={'robustness_score': '稳健度', 'cost_total': '总成本', 'MAU': '效用'},
+                         hover_data=['design_id'],
+                         template="plotly_white")
+
+        # 找出最稳健点
+        top_robust = df.sort_values(by='robustness_score', ascending=False).head(5)
+        if top_robust.empty:
+            insight_msg = dbc.Alert("未能识别出稳健解，请检查数据分布。", color="warning")
+        else:
+            top_ids = ", ".join(top_robust['design_id'].astype(str).tolist())
+            insight_msg = [
+                html.H6("稳健性分析报告：", className="alert-heading"),
+                html.P(f"在 {sim_count} 次模拟中，设计 ID [{top_ids}] 表现最稳健。"),
+                html.Hr(),
+                html.P("建议：优先推荐颜色最亮、圆点最大的设计方案。", className="mb-0")
+            ]
+
+        return fig, insight_msg
+
+    except Exception as e:
+        return {}, dbc.Alert(f"计算发生错误: {str(e)}", color="danger")
